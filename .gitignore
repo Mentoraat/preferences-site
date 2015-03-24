@@ -4,3 +4,8 @@
 */cache/*
 */cache/!index.html
 */cache/!.htaccess
+puphpet/puppet/
+puphpet/shell/
+puphpet/files/
+.vagrant/
+npm-debug.log.*
