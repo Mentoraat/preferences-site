@@ -1,4 +1,4 @@
 <nav>
-  <a href='<?=base_url(); ?>'>Home</a>
-  <a href='<?=base_url('preferences'); ?>'>Preferences</a>
+  <a href='<?=site_url(); ?>'>Home</a>
+  <a href='<?=site_url('preferences'); ?>'>Preferences</a>
 </nav>
