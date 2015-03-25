@@ -216,7 +216,7 @@ mysql:
             grant:
                 - ALL
             name: mentoraat
-            host: localhost
+            host: 192.168.33.10
             user: admin
             password: 8Ul3A12Lnmp234
 postgresql:

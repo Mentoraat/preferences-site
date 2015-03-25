@@ -9,3 +9,4 @@ puphpet/shell/
 puphpet/files/
 .vagrant/
 npm-debug.log.*
+node_modules/
