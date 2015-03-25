@@ -1,14 +1,15 @@
 module.exports = function(grunt) {
-    require('load-grunt-tasks')(grunt);
+    require('jit-grunt')(grunt);
     grunt.initConfig({
             pkg: grunt.file.readJSON('package.json'),
             less: {
                 development: {
                     options: {
-                        paths: ['resources/less', 'bower_components'],
+                        paths: ['resources/less'],
                         optimization: 1,
                         compress: true,
-                        cleancss: true
+                        cleancss: true,
+                        nospawn: true
                     },
                     files: [{
                         expand: true,
@@ -45,13 +46,23 @@ module.exports = function(grunt) {
                         jQuery: true
                     }
                 },
-                myFiles: ['resources/js/**/*.js', 'resources/js_old/**/*.js']
+                myFiles: ['resources/js/**/*.js']
+            },
+            watch: {
+              livereload: {
+                options: {
+                  livereload: false
+                },
+                files: [
+                    'resources/less/**/*.less'
+                ],
+                tasks: [
+                    'less'
+                ]
+              }
             }
-
     });
     grunt.registerTask('compile', ['less']);
-    grunt.registerTask('optimize', ['imagemin:compress']);
     grunt.registerTask('test', ['jshint']);
-    grunt.registerTask('default', ['compile', 'optimize']);
+    grunt.registerTask('default', ['compile']);
 }
-
