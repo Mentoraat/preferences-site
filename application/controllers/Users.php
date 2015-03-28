@@ -96,7 +96,7 @@ class Users extends CI_Controller {
 	/**
 	 * Try to register the user with the specified post data.
 	 *
-	 * @return void
+	 * @return redirect Redirect to main page if succesful, else $this->register.
 	 */
 	public function tryRegister()
 	{
@@ -148,7 +148,7 @@ class Users extends CI_Controller {
 		);
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->page('users/register');
+			$this->register();
 		}
 		else {
 			$password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
@@ -160,6 +160,10 @@ class Users extends CI_Controller {
 		}
 	}
 
+	/**
+	 * Log out the current user.
+	 * @return redirect Redirect to main page.
+	 */
 	public function logout()
 	{
 		$this->user->clear();

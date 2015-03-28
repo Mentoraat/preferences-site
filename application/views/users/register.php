@@ -2,8 +2,8 @@
 
 <?=form_open('users/tryRegister'); ?>
 
-    <label for='userid'>Net ID:</label>
-    <input name='userid' type='text' value='<?=isset($this->form_validation->error_array()['userid']) ? '' : set_value('userid'); ?>' />
+    <label for='netid'>Net ID:</label>
+    <input name='netid' type='text' value='<?=isset($this->form_validation->error_array()['netid']) ? '' : set_value('netid'); ?>' />
 
     <label for='password'>Password:</label>
     <input name='password' type='password' />
