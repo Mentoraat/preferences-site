@@ -3,6 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Preferences extends CI_Controller {
 
+	public function __construct()
+    {
+		parent::__construct();
+
+		if (!$this->user->isLoggedIn())
+		{
+			return $this->router->redirectBack('users/login');
+		}
+    }
+
 	/**
 	 * Default page that shows the possible preferences of a user.
 	 *
@@ -11,7 +21,7 @@ class Preferences extends CI_Controller {
 	public function index()
 	{
 		$data = array(
-			'netid' => $this->user->netid
+			'userid' => $this->user->getUserId()
 		);
 
 		$this->load->page('preferences/index', $data);
@@ -28,16 +38,28 @@ class Preferences extends CI_Controller {
 	public function update()
 	{
 		$this->form_validation->set_rules(
-			'netid',
+			'userid',
 			'Net ID',
-			array('required', array($this->user, 'exists_by_netid')),
+			array(
+				'required',
+				array(
+					'exists_by_netid',
+					array($this->student, 'exists_by_netid')
+				)
+			),
 			'Net ID does not exist.'
 		);
 
 		$this->form_validation->set_rules(
 			'names[]',
 			'Names',
-			array('required', array($this->user, 'exists_by_netid')),
+			array(
+				'required',
+				array(
+					'exists_by_netid',
+					array($this->student, 'exists_by_netid')
+				)
+			),
 			'One of the names is not a valid student name.'
 		);
 
