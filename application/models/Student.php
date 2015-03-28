@@ -29,7 +29,7 @@ class Student extends CI_Model {
 
     public function isSameStudent()
     {
-        $netid = $this->input->post('userid');
+        $netid = $this->input->post('netid');
         $studentid = $this->input->post('studentid');
 
         $value = $this->db->query('

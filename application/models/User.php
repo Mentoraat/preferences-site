@@ -91,6 +91,13 @@ class User extends CI_Model {
         $this->setUser($netid);
     }
 
+    public function clear()
+    {
+        $this->id = NULL;
+        $this->netid = NULL;
+        $this->session->sess_destroy();
+    }
+
     /**
      * Set the current user to the provided netid and update the session.
      *

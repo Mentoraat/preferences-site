@@ -160,4 +160,11 @@ class Users extends CI_Controller {
 		}
 	}
 
+	public function logout()
+	{
+		$this->user->clear();
+
+		return redirect('');
+	}
+
 }
