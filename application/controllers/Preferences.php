@@ -43,12 +43,16 @@ class Preferences extends CI_Controller {
 			array(
 				'required',
 				array(
-					'exists_by_netid',
-					array($this->student, 'exists_by_netid')
+					'isCurrentUser',
+					array($this->user, 'isCurrentUser')
 				)
 			),
-			'Net ID does not exist.'
+			array(
+				'isCurrentUser' => 'Net ID does not exist.'
+			)
 		);
+
+		$seenNames = array();
 
 		$this->form_validation->set_rules(
 			'names[]',
@@ -56,11 +60,29 @@ class Preferences extends CI_Controller {
 			array(
 				'required',
 				array(
-					'exists_by_netid',
-					array($this->student, 'exists_by_netid')
+					'existsByNetid',
+					array($this->student, 'existsByNetid')
+				),
+				array(
+					'distinct',
+					function ($name) use (&$seenNames)
+					{
+						if (in_array($name, $seenNames))
+						{
+							return FALSE;
+						}
+						else
+						{
+							$seenNames[] = $name;
+							return TRUE;
+						}
+					}
 				)
 			),
-			'One of the names is not a valid student name.'
+			array(
+				'existsByNetid' => 'One of the names is not a valid student name.',
+				'distinct' => 'The provided students contain duplicate values.'
+			)
 		);
 
 		if ($this->form_validation->run() == FALSE) {

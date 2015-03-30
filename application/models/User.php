@@ -33,6 +33,11 @@ class User extends CI_Model {
         return $this->id;
     }
 
+    public function isCurrentUser($userid)
+    {
+        return $this->getUserId() === $userid;
+    }
+
     /**
      * Check if the current user is logged in.
      *

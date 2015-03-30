@@ -5,7 +5,7 @@
     <input class='hidden' type='text' name='userid' value='<?=isset($userid) ? $userid : set_value('userid'); ?>' />
 
     <?php
-    for ($i = 0; $i < 10; $i++)
+    for ($i = 0; $i < 2; $i++)
     {
         ?>
         <input class='name' type='text' name='names[<?=$i; ?>]' value='<?=set_value('names[' . $i . ']'); ?>'/>
