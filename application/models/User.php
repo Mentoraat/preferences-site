@@ -181,7 +181,7 @@ class User extends CI_Model {
             WHERE netid = ' . $this->db->escape($netid)
         )->first_row();
 
-        return password_verify($password, $user->password);
+        return isset($user) && password_verify($password, $user->password);
     }
 
 }

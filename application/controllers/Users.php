@@ -43,10 +43,15 @@ class Users extends CI_Controller {
 				array(
 					'alreadyRegistered',
 					array($this->user, 'alreadyRegistered')
+				),
+				array(
+					'failedTooMany',
+					array($this->failedlogin, 'notFailedToMany')
 				)
 			),
 			array(
-				'alreadyRegistered' => 'User not registered.'
+				'alreadyRegistered' => 'User not registered.',
+				'failedTooMany' => 'You have submitted invalid credentials too many times. Please contact an administrator.'
 			)
 		);
 
@@ -66,7 +71,14 @@ class Users extends CI_Controller {
 			)
 		);
 
+		$netid = $this->input->post('netid');
+
 		if ($this->form_validation->run() == FALSE) {
+			if ($this->user->alreadyRegistered($netid))
+			{
+				$this->failedlogin->increment($netid);
+			}
+
 			$data = array(
 				'class' => $class,
 				'method' => $method
@@ -75,9 +87,8 @@ class Users extends CI_Controller {
 			$this->load->page('users/login', $data);
 		}
 		else {
-			$netid = $this->input->post('netid');
-
 			$this->user->setUser($netid);
+			$this->failedlogin->reset($netid);
 
 			return redirect($class . '/' . $method);
 		}

@@ -90,3 +90,9 @@ define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 */
 define('MINIMUM_NUMBER_OF_PREFERENCES', 2); // The minimum number of students
 define('MAXIMUM_NUMBER_OF_PREFERENCES', 5); // The minimum number of students
+
+/*
+| General constant values.
+*/
+// You may fail to input your password maximum of 5 times
+define('MAXIMUM_NUMBER_OF_FAILED_LOGINS', 5);
