@@ -24,7 +24,8 @@ class Preferences extends CI_Controller {
 	public function index()
 	{
 		$data = array(
-			'userid' => $this->user->getUserId()
+			'userid' => $this->user->getUserId(),
+			'preferences' => $this->preference->get()
 		);
 
 		$this->load->page('preferences/index', $data);

@@ -7,8 +7,9 @@
     <?php
     for ($i = 0; $i < MAXIMUM_NUMBER_OF_PREFERENCES; $i++)
     {
+        $preferred = isset($preferences[$i]) ? $preferences[$i] : '';
         ?>
-        <input class='name' type='text' name='names[<?=$i; ?>]' value='<?=set_value('names[' . $i . ']'); ?>'/>
+        <input class='name' type='text' name='names[<?=$i; ?>]' value='<?=set_value('names[' . $i . ']', $preferred); ?>'/>
         <?php
     }
     ?>
