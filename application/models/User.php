@@ -3,8 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User extends CI_Model {
 
-    var $id;
-    var $netid;
+    /**
+     * The user id of the current user.
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * The net id of the current user.
+     * @var string
+     */
+    private $netid;
 
     /**
      * Create the user. Initializes fields if session exists.
@@ -33,9 +42,36 @@ class User extends CI_Model {
         return $this->id;
     }
 
+    /**
+     * Get the net id of the current user.
+     *
+     * @return string The net ID.
+     */
+    public function getNetId()
+    {
+        return $this->netid;
+    }
+
+    /**
+     * Check whether the provided user id is the current user.
+     *
+     * @param integer $userid The user id to check for.
+     * @return boolean If the specified user id is the current user.
+     */
     public function isCurrentUser($userid)
     {
         return $this->getUserId() === $userid;
+    }
+
+    /**
+     * Check whether the provided net id is of the current user.
+     *
+     * @param string $userid The net id to check for.
+     * @return boolean If the specified net id is of the current user.
+     */
+    public function isCurrentNetid($netid)
+    {
+        return $this->getNetId() === $netid;
     }
 
     /**

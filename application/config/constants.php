@@ -84,3 +84,9 @@ define('EXIT_USER_INPUT', 7); // invalid user input
 define('EXIT_DATABASE', 8); // database error
 define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+/*
+| Specify the number of preferences we expect.
+*/
+define('MINIMUM_NUMBER_OF_PREFERENCES', 2); // The minimum number of students
+define('MAXIMUM_NUMBER_OF_PREFERENCES', 5); // The minimum number of students

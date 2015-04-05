@@ -3,6 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Preferences extends CI_Controller {
 
+	/**
+	 * Check that the user is logged in before opening the specified page.
+	 */
 	public function __construct()
     {
 		parent::__construct();
@@ -53,12 +56,12 @@ class Preferences extends CI_Controller {
 		);
 
 		$seenNames = array();
+		$length = NULL;
 
 		$this->form_validation->set_rules(
 			'names[]',
 			'Names',
 			array(
-				'required',
 				array(
 					'existsByNetid',
 					array($this->student, 'existsByNetid')
@@ -67,7 +70,7 @@ class Preferences extends CI_Controller {
 					'distinct',
 					function ($name) use (&$seenNames)
 					{
-						if (in_array($name, $seenNames))
+						if (in_array($name, $seenNames) || $this->user->isCurrentNetid($name))
 						{
 							return FALSE;
 						}
@@ -77,18 +80,37 @@ class Preferences extends CI_Controller {
 							return TRUE;
 						}
 					}
+				),
+				array(
+					'length',
+					function ($name) use (&$length)
+					{
+						if ($length === NULL)
+						{
+							$numberOfPreferences = count(array_filter($this->input->post('names')));
+							$length = $numberOfPreferences >= MINIMUM_NUMBER_OF_PREFERENCES
+								&& $numberOfPreferences <= MAXIMUM_NUMBER_OF_PREFERENCES;
+						}
+
+						return $length;
+					}
 				)
 			),
 			array(
 				'existsByNetid' => 'One of the names is not a valid student name.',
-				'distinct' => 'The provided students contain duplicate values.'
+				'distinct' => 'The provided students contain duplicate/incorrect values.',
+				'length' => 'Provide at least ' . MINIMUM_NUMBER_OF_PREFERENCES . ' and at most ' . MAXIMUM_NUMBER_OF_PREFERENCES . ' students'
 			)
 		);
 
-		if ($this->form_validation->run() == FALSE) {
+		if ($this->form_validation->run() === FALSE)
+		{
 			$this->load->page('preferences/index');
 		}
-		else {
+		else
+		{
+			$this->preference->update($seenNames);
+
 			return redirect('preferences/index/success');
 		}
 	}
