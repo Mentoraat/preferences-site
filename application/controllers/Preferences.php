@@ -12,7 +12,8 @@ class Preferences extends Authenticated_Controller {
 	{
 		$data = array(
 			'userid' => $this->user->getUserId(),
-			'preferences' => $this->preference->get()
+			'preferences' => $this->preference->get(),
+			'roles' => $this->preference->getRoles()
 		);
 
 		$this->load->page('preferences/index', $data);
@@ -91,13 +92,80 @@ class Preferences extends Authenticated_Controller {
 			)
 		);
 
+		$sumOfRoles = 0;
+		$acceptedRoles = array(
+            'Analyst',
+            'Chairman',
+            'Completer',
+            'Driver',
+            'Executive',
+            'Expert',
+            'Explorer',
+            'Innovater',
+            'TeamPlayer'
+        );
+
+		$this->form_validation->set_rules(
+			'role[]',
+			'Role',
+			array(
+				'required',
+				'greater_than[1]',
+				'less_than[100]',
+				array(
+					'represented',
+					function ($role) use (&$acceptedRoles)
+					{
+						if (count($acceptedRoles) > 0)
+						{
+							$providedRoles = array_keys($this->input->post('role'));
+
+							if (count($providedRoles) !== count($acceptedRoles))
+							{
+								return FALSE;
+							}
+
+							$acceptedRoles = array_diff(
+								$providedRoles,
+								$acceptedRoles
+							);
+						}
+
+						return count($acceptedRoles) === 0;
+					}
+				),
+				array(
+					'sum',
+					function ($role) use (&$sumOfRoles)
+					{
+						if ($sumOfRoles === 0)
+						{
+							foreach ($this->input->post('role') as $role)
+							{
+								$sumOfRoles += $role;
+							}
+						}
+
+						return $sumOfRoles === 100;
+					}
+				)
+			),
+			array(
+				'required' => 'You must provide all numbers for all roles.',
+				'greater_than' => 'Role percentages must be greater than 1.',
+				'less_than' => 'Role percentages must be less than 100.',
+				'sum' => 'The role percentages must sum up to 100.',
+				'represented' => 'Not all roles are represented.'
+			)
+		);
+
 		if ($this->form_validation->run() === FALSE)
 		{
 			$this->load->page('preferences/index');
 		}
 		else
 		{
-			$this->preference->update($seenNames);
+			$this->preference->update($seenNames, $this->input->post('role'));
 
 			return redirect('preferences/index/success');
 		}
