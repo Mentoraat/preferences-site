@@ -1,20 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Preferences extends CI_Controller {
-
-	/**
-	 * Check that the user is logged in before opening the specified page.
-	 */
-	public function __construct()
-    {
-		parent::__construct();
-
-		if (!$this->user->isLoggedIn())
-		{
-			return $this->router->redirectBack('users/login');
-		}
-    }
+class Preferences extends Authenticated_Controller {
 
 	/**
 	 * Default page that shows the possible preferences of a user.

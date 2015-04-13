@@ -15,6 +15,8 @@ class User extends CI_Model {
      */
     private $netid;
 
+    private $admin;
+
     /**
      * Create the user. Initializes fields if session exists.
      */
@@ -82,6 +84,22 @@ class User extends CI_Model {
     public function isLoggedIn()
     {
         return $this->id != NULL;
+    }
+
+    public function isAdmin()
+    {
+        if ($this->admin === NULL)
+        {
+            $admin = $this->db->query('
+                SELECT 1
+                FROM admins
+                WHERE user_id = ' . $this->getUserId()
+            )->first_row();
+
+            $this->admin = isset($admin);
+        }
+
+        return $this->admin;
     }
 
     /**
