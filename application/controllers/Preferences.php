@@ -111,7 +111,7 @@ class Preferences extends Authenticated_Controller {
 			array(
 				'required',
 				'greater_than[1]',
-				'less_than[100]',
+				'less_than[25]',
 				array(
 					'represented',
 					function ($role) use (&$acceptedRoles)
@@ -153,7 +153,7 @@ class Preferences extends Authenticated_Controller {
 			array(
 				'required' => 'You must provide all numbers for all roles.',
 				'greater_than' => 'Role percentages must be greater than 1.',
-				'less_than' => 'Role percentages must be less than 100.',
+				'less_than' => 'Role percentages must be less than 25.',
 				'sum' => 'The role percentages must sum up to 100.',
 				'represented' => 'Not all roles are represented.'
 			)
