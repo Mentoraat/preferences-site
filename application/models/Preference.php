@@ -12,8 +12,9 @@ class Preference extends CI_Model {
         $preferences = $this->db->query('
         SELECT prefers_studentid
         FROM preferences
-        WHERE studentid = ' . $this->db->escape($this->user->getNetid())
-        )->result_array();
+        WHERE studentid = ' . $this->db->escape($this->user->getNetid()) . '
+        ORDER BY `order`
+        ')->result_array();
 
         return array_map(function($p) {
             return $p['prefers_studentid'];
@@ -35,11 +36,12 @@ class Preference extends CI_Model {
         WHERE studentid = ' . $this->db->escape($netid)
         );
 
-        $query = 'INSERT INTO preferences (studentid, prefers_studentid) VALUES ';
+        $query = 'INSERT INTO preferences (studentid, prefers_studentid, `order`) VALUES ';
 
+        $i = 1;
         foreach ($names as $name)
         {
-            $query .= '(' . $this->db->escape($netid) . ',' . $this->db->escape($name) . '),';
+            $query .= '(' . $this->db->escape($netid) . ',' . $this->db->escape($name) . ',' . $i++ . '),';
         }
 
         $this->db->query(rtrim($query, ','));

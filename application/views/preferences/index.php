@@ -9,7 +9,10 @@
     {
         $preferred = isset($preferences[$i]) ? $preferences[$i] : '';
         ?>
-        <input class='name' type='text' name='names[<?=$i; ?>]' value='<?=set_value('names[' . $i . ']', $preferred); ?>'/>
+        <div class='name'>
+            <label for='names[<?=$i; ?>]'><?=$i + 1; ?></label>
+            <input class='name' type='text' name='names[<?=$i; ?>]' value='<?=set_value('names[' . $i . ']', $preferred); ?>'/>
+        </div>
         <?php
     }
     ?>
