@@ -7,8 +7,8 @@
 		<?php linkCSS('vendor/bootstrap.min'); ?>
 		<?php linkCSS('site'); ?>
 		<?php linkCSS($this->router->class); ?>
-    <title>Mentoraat</title>
-  </head>
-  <body>
-    <div id="content">
+		<title>Mentoraat</title>
+	</head>
+	<body>
 		<?php $this->load->import('header/navigation'); ?>
+		<div id="content" class="container">
