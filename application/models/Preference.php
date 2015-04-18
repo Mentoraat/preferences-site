@@ -21,6 +21,11 @@ class Preference extends CI_Model {
         }, $preferences);
     }
 
+    /**
+     * Get the roles for this user.
+     *
+     * @return array The roles that this user provided.
+     */
     public function getRoles()
     {
         $roles = $this->db->query('

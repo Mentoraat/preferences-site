@@ -3,6 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Student extends CI_Model {
 
+    /**
+     * Check whether the provided netID exists in the database.
+     *
+     * @param string $netid The netID to check for.
+     * @return boolean Whether the netID is in the database.
+     */
     public function existsByNetid($netid)
     {
         if (is_array($netid))
@@ -27,6 +33,12 @@ class Student extends CI_Model {
         return isset($value);
     }
 
+    /**
+     * Check whether the post fields 'netid' and 'studentid' contain the
+     * same value.
+     *
+     * @return boolean Whether they are of the same student.
+     */
     public function isSameStudent()
     {
         $netid = $this->input->post('netid');
@@ -42,6 +54,12 @@ class Student extends CI_Model {
         return isset($value);
     }
 
+    /**
+     * Retrieve all students that have a netid like the provided netID.
+     *
+     * @param  string $like the netID to search for.
+     * @return array       all netids that contain $like.
+     */
     public function like($like)
     {
         $values = $this->db->query('

@@ -17,5 +17,5 @@
 		<script>
 			var siteUrl = '<?= site_url(); ?>';
 		</script>
-		<?php $this->load->import('header/navigation'); ?>
+		<?php $this->load->view('header/navigation'); ?>
 		<div id="content" class="container">

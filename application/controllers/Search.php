@@ -3,6 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Search extends AJAX_Controller {
 
+    /**
+     * Search for all netIDs that contain the provided value.
+     *
+     * @return void
+     */
     public function byNetId()
     {
         $this->form_validation->set_rules(

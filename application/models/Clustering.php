@@ -3,6 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Clustering extends CI_Model {
 
+    /**
+     * Generate an array of all students with their preferences.
+     * Does not contain non-saved preferences.
+     *
+     * @return array The array with all saved preferences.
+     */
     public function generate()
     {
         $preferences = $this->db->query("

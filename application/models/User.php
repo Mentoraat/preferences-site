@@ -7,15 +7,19 @@ class User extends CI_Model {
      * The user id of the current user.
      * @var integer
      */
-    private $id;
+    private $id = NULL;
 
     /**
      * The net id of the current user.
      * @var string
      */
-    private $netid;
+    private $netid = NULL;
 
-    private $admin;
+    /**
+     * If the user is an admin
+     * @var boolean
+     */
+    private $admin = NULL;
 
     /**
      * Create the user. Initializes fields if session exists.
@@ -23,9 +27,6 @@ class User extends CI_Model {
     public function __construct()
     {
         parent::__construct();
-
-        $id = NULL;
-        $netid = NULL;
 
         if ($this->session->has_userdata('userid'))
         {
@@ -152,8 +153,11 @@ class User extends CI_Model {
 
     public function clear()
     {
-        $this->id = NULL;
-        $this->netid = NULL;
+        foreach (get_object_vars($this) as $field => $value)
+        {
+            $this->$field = NULL;
+        }
+
         $this->session->sess_destroy();
     }
 
