@@ -41,4 +41,15 @@ class Student extends CI_Model {
 
         return isset($value);
     }
+
+    public function like($like)
+    {
+        $values = $this->db->query('
+            SELECT *
+            FROM students
+            WHERE netid LIKE "%' . $this->db->escape_like_str($like) . '%"
+        ')->result();
+
+        return $values;
+    }
 }

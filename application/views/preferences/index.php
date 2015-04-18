@@ -1,3 +1,10 @@
+<div id='netIDProvider'>
+    <h4>Suggestion list:</h4>
+    <div>
+        <ul>No suggestions.</ul>
+    </div>
+</div>
+
 <?=validation_errors(); ?>
 
 <?=form_open('preferences/update'); ?>

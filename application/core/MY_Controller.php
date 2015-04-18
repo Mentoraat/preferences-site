@@ -33,3 +33,38 @@ class Admin_Controller extends Authenticated_Controller {
 		}
     }
 }
+
+class AJAX_Controller extends CI_Controller {
+
+	/**
+	 * Check that the user is admin in before opening the specified page.
+	 */
+	public function __construct()
+    {
+		parent::__construct();
+
+		if (!$this->input->is_ajax_request()) {
+		   exit('No direct script access allowed');
+		}
+    }
+
+	private function show($data)
+	{
+		echo json_encode($data);
+
+		die();
+	}
+
+	protected function fail()
+	{
+		$this->show(array(
+			'response' => 'failure'
+		));
+	}
+
+	protected function succeed($data)
+	{
+		$data['response'] = 'success';
+		$this->show($data);
+	}
+}
