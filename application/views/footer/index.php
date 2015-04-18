@@ -1,9 +1,8 @@
         </div>
         <footer>
             <div class='container'>
-                <div class='logo'>
-                </div>
-                <p>&copy; TU Delft Computer Science<p>
+                <img src='<?=site_url('resources/images/logo.png'); ?>' />
+                <p>&copy; TU Delft EEMCS 2015<p>
             </div>
         </footer>
     </body>
