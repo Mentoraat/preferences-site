@@ -30,7 +30,7 @@
 
     <div id='groupRoles'>
         <h3>Group role test</h3>
-        <span class='testDescription'>Fill in these fields with the results of <a href='https://www.123test.com/team-roles-test/'>this test</a>.</span>
+        <span class='testDescription'>Fill in these fields with the results of <a href='https://www.123test.com/team-roles-test/' target='__blank'>this test</a>.</span>
 
         <?php
         foreach (
