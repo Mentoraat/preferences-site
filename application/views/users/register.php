@@ -1,9 +1,9 @@
-<?=validation_errors(); ?>
+<?php echo validation_errors(); ?>
 
-<?=form_open('users/tryRegister'); ?>
+<?php echo form_open('users/tryRegister'); ?>
 
     <label for='netid'>Net ID:</label>
-    <input name='netid' type='text' value='<?=isset($this->form_validation->error_array()['netid']) ? '' : set_value('netid'); ?>' />
+    <input name='netid' type='text' value='<?php echo isset($this->form_validation->error_array()['netid']) ? '' : set_value('netid'); ?>' />
 
     <label for='password'>Password:</label>
     <input name='password' type='password' />
@@ -12,7 +12,7 @@
     <input name='passconf' type='password' />
 
     <label for='studentid'>Student ID:</label>
-    <input name='studentid' type='number' value='<?=isset($this->form_validation->error_array()['studentid']) ? '' : set_value('studentid'); ?>'/>
+    <input name='studentid' type='number' value='<?php echo isset($this->form_validation->error_array()['studentid']) ? '' : set_value('studentid'); ?>'/>
 
     <button type='submit'>Register</button>
 </form>

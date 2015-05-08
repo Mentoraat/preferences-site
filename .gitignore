@@ -10,3 +10,4 @@ puphpet/files/
 .vagrant/
 npm-debug.log.*
 node_modules/
+application/config/database.php

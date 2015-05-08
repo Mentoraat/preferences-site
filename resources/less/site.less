@@ -1,9 +1,18 @@
 /*
     Standard HTML element styling.
  */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 footer {
     border-top: 1px gray solid;
     margin-top: 10px;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
 
     img {
         margin-right: 15px;
@@ -86,4 +95,10 @@ nav {
  */
 #content {
     margin: 0 auto;
+    padding-bottom: 110px;
+}
+
+#wrapper {
+    min-height: 100%;
+    position: relative;
 }

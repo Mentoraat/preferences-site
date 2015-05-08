@@ -1,6 +1,6 @@
-<?=validation_errors(); ?>
+<?php echo validation_errors(); ?>
 
-<?=form_open('users/tryLogin/' . $class . '/' . $method); ?>
+<?php echo form_open('users/tryLogin/' . $class . '/' . $method); ?>
 
     <div>
         <label for='netid'>Net ID:</label>

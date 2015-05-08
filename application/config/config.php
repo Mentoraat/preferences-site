@@ -17,7 +17,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments.
 |
 */
-$config['base_url'] = 'http://mentoraat.nl';
+if (ENVIRONMENT === 'development') {
+    $config['base_url'] = 'http://mentoraat.nl';
+}
+else {
+    $config['base_url'] = 'http://helix.ewi.tudelft.nl/mentoraat';
+}
 
 /*
 |--------------------------------------------------------------------------

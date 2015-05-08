@@ -14,8 +14,9 @@
 		<title>Mentoraat</title>
 	</head>
 	<body>
-		<script>
-			var siteUrl = '<?= site_url(); ?>';
-		</script>
-		<?php $this->load->view('header/navigation'); ?>
-		<div id="content" class="container">
+		<div id="wrapper">
+			<script>
+				var siteUrl = '<?php echo  site_url(); ?>';
+			</script>
+			<?php $this->load->view('header/navigation'); ?>
+			<div id="content" class="container">

@@ -5,11 +5,11 @@
     </div>
 </div>
 
-<?=validation_errors(); ?>
+<?php echo validation_errors(); ?>
 
-<?=form_open('preferences/update'); ?>
+<?php echo form_open('preferences/update'); ?>
 
-    <input class='hidden' type='text' name='userid' value='<?=isset($userid) ? $userid : set_value('userid'); ?>' />
+    <input class='hidden' type='text' name='userid' value='<?php echo isset($userid) ? $userid : set_value('userid'); ?>' />
 
     <div id='studentPreferences'>
         <h3>Student preferences</h3>
@@ -20,8 +20,8 @@
             $preferred = isset($preferences[$i]) ? $preferences[$i] : '';
             ?>
             <div class='name'>
-                <label for='names[<?=$i; ?>]'><?=$i + 1; ?></label>
-                <input class='name' type='text' name='names[<?=$i; ?>]' value='<?=set_value('names[' . $i . ']', $preferred); ?>' />
+                <label for='names[<?php echo $i; ?>]'><?php echo $i + 1; ?></label>
+                <input class='name' type='text' name='names[<?php echo $i; ?>]' value='<?php echo set_value('names[' . $i . ']', $preferred); ?>' />
             </div>
             <?php
         }
@@ -51,8 +51,8 @@
 
             ?>
             <div class='role'>
-                <label for='role[<?=$name; ?>]'><?=$role; ?></label>
-                <input class='role' type='number' name='role[<?=$name; ?>]' value='<?=set_value('role[' . $name . ']', $roleValue); ?>' min='1' max='100' />
+                <label for='role[<?php echo $name; ?>]'><?php echo $role; ?></label>
+                <input class='role' type='number' name='role[<?php echo $name; ?>]' value='<?php echo set_value('role[' . $name . ']', $roleValue); ?>' min='1' max='100' />
             </div>
             <?php
         }
