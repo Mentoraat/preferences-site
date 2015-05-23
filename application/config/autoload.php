@@ -137,4 +137,4 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 
-$autoload['model'] = array('clustering', 'failedlogin', 'preference', 'student', 'user');
+$autoload['model'] = array('clustering', 'configKey', 'failedlogin', 'preference', 'student', 'user');

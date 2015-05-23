@@ -92,6 +92,12 @@ define('MINIMUM_NUMBER_OF_PREFERENCES', 2); // The minimum number of students
 define('MAXIMUM_NUMBER_OF_PREFERENCES', 5); // The minimum number of students
 
 /*
+| The configuration key names.
+ */
+define('REGISTRATION_KEY', 'REGISTRATION_STATUS');
+define('PREFERENCES_KEY', 'PREFERENCES_STATUS');
+
+/*
 | General constant values.
 */
 // You may fail to input your password maximum of 5 times

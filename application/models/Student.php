@@ -33,25 +33,15 @@ class Student extends CI_Model {
         return isset($value);
     }
 
-    /**
-     * Check whether the post fields 'netid' and 'studentid' contain the
-     * same value.
-     *
-     * @return boolean Whether they are of the same student.
-     */
-    public function isSameStudent()
+    public function insertNewStudent($netid, $studentid)
     {
-        $netid = $this->input->post('netid');
-        $studentid = $this->input->post('studentid');
-
-        $value = $this->db->query('
-            SELECT 1
-            FROM students
-            WHERE netid = ' . $this->db->escape($netid) . '
-                AND studentid = ' . $this->db->escape($studentid)
-        )->first_row();
-
-        return isset($value);
+        $this->db->query('
+        INSERT INTO students (netid, studentid)
+        VALUES (
+            ' . $this->db->escape($netid) . ',
+            ' . $this->db->escape($studentid) . '
+            )
+        ');
     }
 
     /**

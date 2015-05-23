@@ -22,3 +22,31 @@ function insertScript($name)
 {
 	echo '<script src="' . base_url('resources/js/' . $name . '.js') . '" type="text/javascript"></script>';
 }
+
+$defaultMapper = function($item)
+{
+	return $item;
+};
+
+/**
+ * Generates a list by applying $mapper to each item.
+ *
+ * @param array $list   The list to show
+ * @param function $mapper The mapper that will show the actual content. Default value is the default mapper (simply returning the item).
+ */
+function showAsList($list, $mapper=NULL)
+{
+	if ($mapper === NULL)
+	{
+		$mapper = $defaultMapper;
+	}
+
+	echo '<ul>';
+
+	foreach ($list as $item)
+	{
+		echo '<li>' . $mapper($item) . '</li>';
+	}
+
+	echo '</ul>';
+}

@@ -13,7 +13,8 @@ class Preferences extends Authenticated_Controller {
 		$data = array(
 			'userid' => $this->user->getUserId(),
 			'preferences' => $this->preference->get(),
-			'roles' => $this->preference->getRoles()
+			'roles' => $this->preference->getRoles(),
+			'status' => $this->configKey->get(PREFERENCES_KEY) === 'Close'
 		);
 
 		$this->load->page('preferences/index', $data);
@@ -29,6 +30,13 @@ class Preferences extends Authenticated_Controller {
 	 */
 	public function update()
 	{
+		$preferenceStatus = $this->configKey->get(PREFERENCES_KEY);
+
+		if ($preferenceStatus === 'Close')
+		{
+			return redirect('preferences/index');
+		}
+
 		$this->form_validation->set_rules(
 			'userid',
 			'Net ID',

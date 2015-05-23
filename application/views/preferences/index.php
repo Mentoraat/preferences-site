@@ -1,3 +1,14 @@
+<?php
+if ($status)
+{
+    ?>
+    <div class="form_error center">
+        <span>The preference process has been closed.</span>
+    </div>
+    <?php
+}
+?>
+
 <div id='netIDProvider'>
     <h4>Suggestion list:</h4>
     <div>

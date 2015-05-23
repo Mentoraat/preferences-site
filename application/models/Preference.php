@@ -55,7 +55,9 @@ class Preference extends CI_Model {
         WHERE studentid = ' . $this->db->escape($netid)
         );
 
-        $query = 'INSERT INTO preferences (studentid, prefers_studentid, `order`) VALUES ';
+        $query = '
+        INSERT INTO preferences (studentid, prefers_studentid, `order`)
+        VALUES ';
 
         $i = 1;
         foreach ($names as $name)
@@ -70,7 +72,9 @@ class Preference extends CI_Model {
         WHERE netid = ' . $this->db->escape($netid)
         );
 
-        $query = 'INSERT INTO team_roles (netid, role, percentage) VALUES ';
+        $query = '
+        INSERT INTO team_roles (netid, role, percentage)
+        VALUES ';
 
         foreach ($roles as $role => $percentage)
         {

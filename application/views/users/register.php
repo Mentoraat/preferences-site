@@ -1,6 +1,19 @@
-<?php echo validation_errors(); ?>
+<?php
+if ($status === 'closed')
+{
+    ?>
+    <div class="form_error center">
+        <span>The registration has been closed.</span>
+    </div>
+    <?php
+}
+?>
 
-<?php echo form_open('users/tryRegister'); ?>
+<?=validation_errors(); ?>
+
+<?=form_open('users/tryRegister', array(
+    'class' => 'center'
+)); ?>
 
     <label for='netid'>Net ID:</label>
     <input name='netid' type='text' value='<?php echo isset($this->form_validation->error_array()['netid']) ? '' : set_value('netid'); ?>' />

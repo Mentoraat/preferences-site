@@ -99,9 +99,9 @@ class Users extends CI_Controller {
 	 *
 	 * @return void
 	 */
-	public function register()
+	public function register($status = '')
 	{
-		$this->load->page('users/register');
+		$this->load->page('users/register', array('status' => $status));
 	}
 
 	/**
@@ -111,22 +111,24 @@ class Users extends CI_Controller {
 	 */
 	public function tryRegister()
 	{
+		$registrationStatus = $this->configKey->get(REGISTRATION_KEY);
+
+		if ($registrationStatus === 'Close')
+		{
+			return redirect('users/register/closed');
+		}
+
 		$this->form_validation->set_rules(
 			'netid',
 			'Net ID',
 			array(
 				'required',
 				array(
-					'existsByNetid',
-					array($this->student, 'existsByNetid')
-				),
-				array(
 					'notAlreadyRegistered',
 					array($this->user, 'notAlreadyRegistered')
 				)
 			),
 			array(
-				'existsByNetid' => 'Net ID does not exist.',
 				'notAlreadyRegistered' => 'This Net ID is already registered. If this is not you, please contact an administrator.'
 			)
 		);
@@ -148,13 +150,8 @@ class Users extends CI_Controller {
 			'Student ID',
 			array(
 				'required',
-				array(
-					'matchesNetId',
-					array($this->student, 'isSameStudent')
-				)
-			),
-			array(
-				'matchesNetId' => 'The Student ID and Net ID are not of the same student.'
+				'integer',
+				'greater_than[1000000]'
 			)
 		);
 
@@ -164,8 +161,10 @@ class Users extends CI_Controller {
 		else {
 			$password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
 			$netid = $this->input->post('netid');
+			$studentid = $this->input->post('studentid');
 
 			$this->user->register($netid, $password);
+			$this->student->insertNewStudent($netid, $studentid);
 
 			return redirect('');
 		}
