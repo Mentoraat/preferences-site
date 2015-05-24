@@ -35,4 +35,32 @@ class Clustering extends CI_Model {
         }, array());
     }
 
+    public function gephi()
+    {
+        $students = $this->db->query("
+            SELECT id
+            FROM students
+            ORDER BY id
+	    ")->result();
+
+        $preferences = $this->db->query("
+            SELECT
+                fromstudent.id AS studentid,
+                tostudent.id AS prefers_studentid,
+                preferences.`order`
+            FROM preferences
+            JOIN students
+                AS fromstudent
+                ON fromstudent.netid = preferences.studentid
+            JOIN students
+                AS tostudent
+                ON tostudent.netid = preferences.prefers_studentid
+        ")->result();
+
+        return array(
+            'students' => $students,
+            'preferences' => $preferences
+        );
+    }
+
 }

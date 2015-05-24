@@ -1,5 +1,5 @@
 <?php
-if ($status)
+if (isset($status) && $status === 'closed')
 {
     ?>
     <div class="form_error center">

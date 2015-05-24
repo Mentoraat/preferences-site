@@ -23,4 +23,9 @@ class Cluster extends Admin_Controller {
         $this->load->page('cluster/output');
     }
 
+    public function gephi()
+    {
+        $this->load->page('cluster/gephi');
+    }
+
 }
