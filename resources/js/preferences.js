@@ -1,5 +1,5 @@
 $(function() {
-    $('#studentPreferences input.name').on('input', function() {
+    $('#studentPreferences input').on('input', function() {
         var value = $(this).val();
 
         if (value !== '' && value.length >= 3) {
@@ -18,7 +18,7 @@ $(function() {
 
                         if (netids.length > 0) {
                             for (var i = 0; i < result.netids.length; i++) {
-                                $('#netIDProvider ul').append('<li>' + result.netids[i] + '</li>');
+                                $('#netIDProvider ul').append('<li class="list-group-item">' + result.netids[i] + '</li>');
                             }
                         }
                         else {

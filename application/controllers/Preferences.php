@@ -55,6 +55,20 @@ class Preferences extends Authenticated_Controller {
 		$seenNames = array();
 		$length = NULL;
 
+		$that = $this;
+		$distinctFunction = function ($name) use (&$seenNames, $that)
+		{
+			if (in_array($name, $seenNames) || $this->user->isCurrentNetid($name))
+			{
+				return FALSE;
+			}
+			else
+			{
+				$seenNames[] = $name;
+				return TRUE;
+			}
+		};
+
 		$this->form_validation->set_rules(
 			'names[]',
 			'Names',
@@ -65,18 +79,7 @@ class Preferences extends Authenticated_Controller {
 				),
 				array(
 					'distinct',
-					function ($name) use (&$seenNames)
-					{
-						if (in_array($name, $seenNames) || $this->user->isCurrentNetid($name))
-						{
-							return FALSE;
-						}
-						else
-						{
-							$seenNames[] = $name;
-							return TRUE;
-						}
-					}
+					$distinctFunction
 				),
 				array(
 					'length',

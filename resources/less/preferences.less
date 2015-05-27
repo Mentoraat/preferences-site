@@ -1,14 +1,28 @@
-.testDescription {
-    display: inline-block;
-    margin-bottom: 10px;
-    margin-top: 10px;
+form {
+    margin-left: auto;
+    margin-right: auto;
+
+    .panel-body {
+        display: inline-block;
+        width: 100%;
+    }
+
+    .input {
+        width: 100%;
+
+        &.name label {
+            width: 40px;
+        }
+
+        &.role label {
+            width: 105px;
+        }
+    }
 }
 
-#studentPreferences {
-
-    h3:first-child {
-        margin-top: 0;
-    }
+.testDescription {
+    display: inline-block;
+    margin: 10px;
 }
 
 #netIDProvider {
@@ -17,25 +31,41 @@
     float: right;
     height: 300px;
     min-width: 163px;
-    padding: 10px;
-    margin-top: 40px;
+
+    li::before {
+        content: '*';
+        margin-right: 5px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    form {
+        margin-right: 210px;
+    }
 }
 
 @media screen and (max-width: 650px) {
     form {
+        margin-left: 0;
         margin-right: 200px;
+        width: 60%;
     }
 }
 
 @media screen and (max-width: 500px) {
     form {
-        margin: 0 auto;
+        width: 100%;
     }
 
     #netIDProvider {
         float: none;
-        height: 100px;
+        height: 100%;
         margin-bottom: 5px;
+        margin-top: 0;
         width: 100%;
+
+        .panel-body {
+            padding-bottom: 0;
+        }
     }
 }
