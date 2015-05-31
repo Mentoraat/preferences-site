@@ -9,6 +9,17 @@ if (isset($status) && $status)
 }
 ?>
 
+<?php
+if ($wasSuccess)
+{
+    ?>
+    <div class="alert alert-success" role="alert">
+        <span>Your preferences are updated.</span>
+    </div>
+    <?php
+}
+?>
+
 <?php echo validation_errors(); ?>
 
 <div id='netIDProvider' class="panel panel-primary">

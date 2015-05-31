@@ -8,13 +8,14 @@ class Preferences extends Authenticated_Controller {
 	 *
 	 * @return void
 	 */
-	public function index()
+	public function index($wasSuccess = '')
 	{
 		$data = array(
 			'userid' => $this->user->getUserId(),
 			'preferences' => $this->preference->get(),
 			'roles' => $this->preference->getRoles(),
-			'status' => $this->configKey->get(PREFERENCES_KEY) === 'Close'
+			'status' => $this->configKey->get(PREFERENCES_KEY) === 'Close',
+			'wasSuccess' => $wasSuccess === 'success'
 		);
 
 		$this->load->page('preferences/index', $data);
@@ -56,9 +57,9 @@ class Preferences extends Authenticated_Controller {
 		$length = NULL;
 
 		$that = $this;
-		$distinctFunction = function ($name) use (&$seenNames, $that)
+		$distinctFunction = function ($name) use (&$seenNames, &$that)
 		{
-			if (in_array($name, $seenNames) || $this->user->isCurrentNetid($name))
+			if (in_array($name, $seenNames) || $that->user->isCurrentNetid($name))
 			{
 				return FALSE;
 			}
@@ -67,6 +68,18 @@ class Preferences extends Authenticated_Controller {
 				$seenNames[] = $name;
 				return TRUE;
 			}
+		};
+
+		$lengthFunction = function ($name) use (&$length, &$that)
+		{
+			if ($length === NULL)
+			{
+				$numberOfPreferences = count(array_filter($that->input->post('names')));
+				$length = $numberOfPreferences >= MINIMUM_NUMBER_OF_PREFERENCES
+					&& $numberOfPreferences <= MAXIMUM_NUMBER_OF_PREFERENCES;
+			}
+
+			return $length;
 		};
 
 		$this->form_validation->set_rules(
@@ -83,17 +96,7 @@ class Preferences extends Authenticated_Controller {
 				),
 				array(
 					'length',
-					function ($name) use (&$length)
-					{
-						if ($length === NULL)
-						{
-							$numberOfPreferences = count(array_filter($this->input->post('names')));
-							$length = $numberOfPreferences >= MINIMUM_NUMBER_OF_PREFERENCES
-								&& $numberOfPreferences <= MAXIMUM_NUMBER_OF_PREFERENCES;
-						}
-
-						return $length;
-					}
+					$lengthFunction
 				)
 			),
 			array(
@@ -116,6 +119,39 @@ class Preferences extends Authenticated_Controller {
             'TeamPlayer'
         );
 
+		$allRolesFunction = function ($role) use (&$acceptedRoles, &$that)
+		{
+			if (count($acceptedRoles) > 0)
+			{
+				$providedRoles = array_keys($that->input->post('role'));
+
+				if (count($providedRoles) !== count($acceptedRoles))
+				{
+					return FALSE;
+				}
+
+				$acceptedRoles = array_diff(
+					$providedRoles,
+					$acceptedRoles
+				);
+			}
+
+			return count($acceptedRoles) === 0;
+		};
+
+		$sumFunction = function ($role) use (&$sumOfRoles, &$that)
+		{
+			if ($sumOfRoles === 0)
+			{
+				foreach ($that->input->post('role') as $role)
+				{
+					$sumOfRoles += $role;
+				}
+			}
+
+			return $sumOfRoles === 100;
+		};
+
 		$this->form_validation->set_rules(
 			'role[]',
 			'Role',
@@ -125,40 +161,11 @@ class Preferences extends Authenticated_Controller {
 				'less_than[25]',
 				array(
 					'represented',
-					function ($role) use (&$acceptedRoles)
-					{
-						if (count($acceptedRoles) > 0)
-						{
-							$providedRoles = array_keys($this->input->post('role'));
-
-							if (count($providedRoles) !== count($acceptedRoles))
-							{
-								return FALSE;
-							}
-
-							$acceptedRoles = array_diff(
-								$providedRoles,
-								$acceptedRoles
-							);
-						}
-
-						return count($acceptedRoles) === 0;
-					}
+					$allRolesFunction
 				),
 				array(
 					'sum',
-					function ($role) use (&$sumOfRoles)
-					{
-						if ($sumOfRoles === 0)
-						{
-							foreach ($this->input->post('role') as $role)
-							{
-								$sumOfRoles += $role;
-							}
-						}
-
-						return $sumOfRoles === 100;
-					}
+					$sumFunction
 				)
 			),
 			array(

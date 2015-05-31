@@ -22,7 +22,7 @@ class Admin extends Admin_Controller {
         WHERE NOT EXISTS (
                 SELECT 1
                 FROM preferences
-                WHERE studentid = id
+                WHERE studentid = students.netid
             )
         LIMIT 25
         ')->result();
