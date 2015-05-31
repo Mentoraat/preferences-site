@@ -155,6 +155,52 @@ class Users extends CI_Controller {
 			)
 		);
 
+		$this->form_validation->set_rules(
+			'email',
+			'E-mail address',
+			array(
+				'required',
+				'trim',
+				'valid_email'
+			)
+		);
+
+		$this->form_validation->set_rules(
+			'gender',
+			'Gender',
+			array(
+				'required',
+				array(
+					'isMaleOrFemale',
+					function($gender)
+					{
+						return in_array($gender, array('male', 'female'));
+					}
+				)
+			),
+			array(
+				'isMaleOrFemale' => 'Your gender must be male of female.'
+			)
+		);
+
+		$this->form_validation->set_rules(
+			'first',
+			'First study',
+			array(
+				'required',
+				array(
+					'isYesOrNo',
+					function($gender)
+					{
+						return in_array($gender, array('yes', 'no'));
+					}
+				)
+			),
+			array(
+				'isYesOrNo' => 'It is either your first study or not.'
+			)
+		);
+
 		if ($this->form_validation->run() == FALSE) {
 			$this->register();
 		}
@@ -164,7 +210,11 @@ class Users extends CI_Controller {
 			$studentid = $this->input->post('studentid');
 
 			$this->user->register($netid, $password);
-			$this->student->insertNewStudent($netid, $studentid);
+			$this->student->insertNewStudent($netid, $studentid,
+				$this->input->post('email'),
+				$this->input->post('gender'),
+				$this->input->post('first')
+			);
 
 			return redirect('');
 		}

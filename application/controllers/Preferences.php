@@ -179,7 +179,15 @@ class Preferences extends Authenticated_Controller {
 
 		if ($this->form_validation->run() === FALSE)
 		{
-			$this->load->page('preferences/index');
+			$data = array(
+				'userid' => $this->user->getUserId(),
+				'preferences' => $this->preference->get(),
+				'roles' => $this->preference->getRoles(),
+				'status' => $this->configKey->get(PREFERENCES_KEY) === 'Close',
+				'wasSuccess' => false
+			);
+
+			$this->load->page('preferences/index', $data);
 		}
 		else
 		{

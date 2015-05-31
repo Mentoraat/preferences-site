@@ -83,6 +83,12 @@ if ($wasSuccess)
                 <?php
             }
             ?>
+            <div id="counter" class="input-group">
+                <span class="input-group-addon">Total:</span>
+                <div class="form-control">
+                    <span class="value">0</span>
+                </div>
+            </div>
         </div>
     </div>
 

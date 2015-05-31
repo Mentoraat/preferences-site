@@ -1,4 +1,4 @@
-<div class='center' id='input'>
+<div class='center' id='login'>
     <?php echo validation_errors(); ?>
 
     <?php echo form_open('users/tryLogin/' . $class . '/' . $method); ?>
