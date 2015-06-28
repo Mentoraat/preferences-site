@@ -55,21 +55,21 @@ if ($wasSuccess)
 
     <div id='groupRoles' class="panel panel-default">
         <div class="panel-heading">Group role test</div>
-        <span class='testDescription'>Fill in these fields with the results of <a href='https://www.123test.com/team-roles-test/' target='__blank'>this test</a>.</span>
+        <span class='testDescription'>Fill in these fields with the results of <a href='https://www.123test.nl/groepsrollentest/' target='__blank'>this test</a>.</span>
 
         <div class="panel-body">
             <?php
             foreach (
                 array(
-                    'Analyst',
-                    'Chairman',
-                    'Completer',
-                    'Driver',
-                    'Executive',
-                    'Expert',
-                    'Explorer',
-                    'Innovater',
-                    'Team Player'
+                    "Bedrijfsman",
+                    "Brononderzoeker",
+                    "Plant",
+                    "Monitor",
+                    "Vormer",
+                    "Voorzitter",
+                    "Zorgdrager",
+                    "Groepswerker",
+                    "Specialist"
                 ) as $role)
             {
                 $name = str_replace(' ', '', $role);

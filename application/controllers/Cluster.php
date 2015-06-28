@@ -47,15 +47,15 @@ class Cluster extends Admin_Controller {
         foreach ($roles as $student => $role)
         {
             $acceptedRoles = array(
-                'Analyst',
-                'Chairman',
-                'Completer',
-                'Driver',
-                'Executive',
-                'Expert',
-                'Explorer',
-                'Innovater',
-                'TeamPlayer'
+                "Bedrijfsman",
+                "Brononderzoeker",
+                "Plant",
+                "Monitor",
+                "Vormer",
+                "Voorzitter",
+                "Zorgdrager",
+                "Groepswerker",
+                "Specialist"
             );
 
             $max = max($role);

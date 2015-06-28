@@ -108,16 +108,16 @@ class Preferences extends Authenticated_Controller {
 
 		$sumOfRoles = 0;
 		$acceptedRoles = array(
-            'Analyst',
-            'Chairman',
-            'Completer',
-            'Driver',
-            'Executive',
-            'Expert',
-            'Explorer',
-            'Innovater',
-            'TeamPlayer'
-        );
+			"Bedrijfsman",
+			"Brononderzoeker",
+			"Plant",
+			"Monitor",
+			"Vormer",
+			"Voorzitter",
+			"Zorgdrager",
+			"Groepswerker",
+			"Specialist"
+		);
 
 		$allRolesFunction = function ($role) use (&$acceptedRoles, &$that)
 		{
