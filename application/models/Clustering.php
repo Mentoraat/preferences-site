@@ -17,7 +17,7 @@ class Clustering extends CI_Model {
                 allstudents.netid,
                 otherstudents.netid AS prefers_studentid,
                 coalesce((
-                    SELECT `order`
+                    SELECT 6 - `order`
                     FROM preferences
                     WHERE preferences.studentid = allstudents.netid
                         AND preferences.prefers_studentid = otherstudents.netid
@@ -47,7 +47,7 @@ class Clustering extends CI_Model {
             SELECT
                 fromstudent.id AS studentid,
                 tostudent.id AS prefers_studentid,
-                preferences.`order`
+                6 - preferences.`order`
             FROM preferences
             JOIN students
                 AS fromstudent
