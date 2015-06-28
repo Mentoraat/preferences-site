@@ -35,6 +35,23 @@ class Clustering extends CI_Model {
         }, array());
     }
 
+    public function generateRoles()
+    {
+        $roles = $this->db->query("
+            SELECT
+                students.netid,
+                role
+            FROM students
+            LEFT OUTER JOIN team_roles
+                ON students.netid = team_roles.netid
+        ")->result();
+
+        return array_reduce($roles, function(&$result, $role) {
+            $result[$role->netid][$role->role] = '0';
+            return $result;
+        }, array());
+    }
+
     public function gephi()
     {
         $students = $this->db->query("
