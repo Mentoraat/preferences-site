@@ -89,7 +89,7 @@ class User extends CI_Model {
 
     public function isAdmin()
     {
-        if ($this->admin === NULL)
+        if ($this->admin === NULL && $this->getUserId())
         {
             $admin = $this->db->query('
                 SELECT 1
