@@ -7,7 +7,7 @@ MaxScore = 5;
 nRoles = 10;
 
 %Make some testdata
-if 1
+if 0
     Dpref = zeros(nStudents);
     
     for i = 1:nStudents
@@ -37,7 +37,8 @@ if 1
     end
     save testdata Dpref Dbelbin
 else
-    load testdata
+    load Dpref.csv
+    load Dbelbin.csv
 end
 
 GoodClust = repmat(1:5,10,1);
