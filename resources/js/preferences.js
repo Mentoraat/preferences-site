@@ -1,13 +1,3 @@
-function updateTotalCount() {
-    var sum = $.map($('#groupRoles input'), function(input) {
-        return parseInt($(input).val());
-    }).reduce(function(one, other) {
-        return one + other;
-    });
-
-    $('#counter .value').html(sum);
-}
-
 $(function() {
     $('#studentPreferences input').on('input', function() {
         var value = $(this).val();
@@ -42,10 +32,4 @@ $(function() {
             $('#netIDProvider ul').html('No suggestions.');
         }
     });
-
-    $('#groupRoles input').on('input', function() {
-        updateTotalCount();
-    })
-
-    updateTotalCount();
 });

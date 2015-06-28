@@ -145,11 +145,11 @@ class Preferences extends Authenticated_Controller {
 			{
 				foreach ($that->input->post('role') as $role)
 				{
-					$sumOfRoles += $role;
+					$sumOfRoles += ($role > 0);
 				}
 			}
 
-			return $sumOfRoles === 100;
+			return $sumOfRoles === 2;
 		};
 
 		$this->form_validation->set_rules(
@@ -157,7 +157,6 @@ class Preferences extends Authenticated_Controller {
 			'Role',
 			array(
 				'required',
-				'greater_than[1]',
 				'less_than[25]',
 				array(
 					'represented',
@@ -170,9 +169,8 @@ class Preferences extends Authenticated_Controller {
 			),
 			array(
 				'required' => 'You must provide all numbers for all roles.',
-				'greater_than' => 'Role percentages must be greater than 1.',
 				'less_than' => 'Role percentages must be less than 25.',
-				'sum' => 'The role percentages must sum up to 100.',
+				'sum' => 'You must provide 2 role percentages.',
 				'represented' => 'Not all roles are represented.'
 			)
 		);

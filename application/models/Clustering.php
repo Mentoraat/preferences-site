@@ -40,14 +40,15 @@ class Clustering extends CI_Model {
         $roles = $this->db->query("
             SELECT
                 students.netid,
-                role
+                role,
+                percentage
             FROM students
             LEFT OUTER JOIN team_roles
                 ON students.netid = team_roles.netid
         ")->result();
 
         return array_reduce($roles, function(&$result, $role) {
-            $result[$role->netid][$role->role] = '0';
+            $result[$role->netid][$role->role] = $role->percentage;
             return $result;
         }, array());
     }

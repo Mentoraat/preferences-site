@@ -78,17 +78,11 @@ if ($wasSuccess)
                 ?>
                 <div class='input role input-group'>
                     <label for='role[<?php echo $name; ?>]' class="input-group-addon"><?php echo $role; ?></label>
-                    <input type='number' name='role[<?php echo $name; ?>]' class="form-control" value='<?php echo set_value('role[' . $name . ']', $roleValue); ?>' min='1' max='100' />
+                    <input type='number' name='role[<?php echo $name; ?>]' class="form-control" value='<?php echo set_value('role[' . $name . ']', $roleValue); ?>' max='25' />
                 </div>
                 <?php
             }
             ?>
-            <div id="counter" class="input-group">
-                <span class="input-group-addon">Total:</span>
-                <div class="form-control">
-                    <span class="value">0</span>
-                </div>
-            </div>
         </div>
     </div>
 

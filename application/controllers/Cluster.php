@@ -58,15 +58,17 @@ class Cluster extends Admin_Controller {
                 'TeamPlayer'
             );
 
+            $max = max($role);
+
             foreach ($acceptedRoles as $accepted)
             {
-                if (array_key_exists($accepted, $role))
+                if (array_key_exists($accepted, $role) && $role[$accepted] > 0)
                 {
-                    $output .= $role[$accepted] . $delimiter;
+                    $output .= (($role[$accepted] === $max) + 1) . $delimiter;
                 }
                 else
                 {
-                    $output .= '-1' . $delimiter;
+                    $output .= '0' . $delimiter;
                 }
             }
 
