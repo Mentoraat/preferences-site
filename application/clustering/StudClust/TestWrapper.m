@@ -1,13 +1,13 @@
 
-nStudents = 300;
-nClust = 20;
+nStudents = 50;
+nClust = 5;
 nInClust = nStudents/nClust; %Should be round number
 ClusterStrength = 0.8;
 MaxScore = 5;
-nRoles = 9;
+nRoles = 10;
 
 %Make some testdata
-if 1
+if 0
     Dpref = zeros(nStudents);
     
     for i = 1:nStudents

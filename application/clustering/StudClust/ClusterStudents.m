@@ -3,7 +3,7 @@
 load testdata
 nStudents = size(Dpref,1);
 % fitnessfcn = @(x,Dpref,Dbelbin)ClustStudFit;
-nClust = 20;
+nClust = 5;
 MaxMutation = 4;
 
 %%%%%%%%%%%%%%%%%%

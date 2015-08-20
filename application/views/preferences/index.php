@@ -35,7 +35,8 @@ if ($wasSuccess)
 
     <div id='studentPreferences' class="panel panel-default">
         <div class="panel-heading">Student preferences</div>
-        <span class='testDescription'>Fill in the <strong>Net ID's</strong> of the students you prefer to be in a group with. Use the suggestion list on the right to quickly find a students netid.</span>
+        <span class='testDescription'>Fill in the <strong>Net ID's</strong> of the students you prefer to be in a group with. Use the suggestion list on the right to quickly find a students netid.
+	<br>You need to fill in at least 2 Net ID's.</span>
 
         <div class="panel-body">
             <?php
@@ -55,7 +56,7 @@ if ($wasSuccess)
 
     <div id='groupRoles' class="panel panel-default">
         <div class="panel-heading">Group role test</div>
-        <span class='testDescription'>Fill in these fields with the results of <a href='https://www.123test.nl/groepsrollentest/' target='__blank'>this test</a>.</span>
+        <span class='testDescription'>Make <a href='https://www.123test.nl/groepsrollentest/' target='__blank'>this test</a>. Fill in your scores for the top 2 team-roles in the corresponding input fields below.</span>
 
         <div class="panel-body">
             <?php

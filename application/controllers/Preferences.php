@@ -59,6 +59,7 @@ class Preferences extends Authenticated_Controller {
 		$that = $this;
 		$distinctFunction = function ($name) use (&$seenNames, &$that)
 		{
+			$name = strtolower($name);
 			if (in_array($name, $seenNames) || $that->user->isCurrentNetid($name))
 			{
 				return FALSE;
@@ -100,7 +101,7 @@ class Preferences extends Authenticated_Controller {
 				)
 			),
 			array(
-				'existsByNetid' => 'One of the names is not a valid student name.',
+				'existsByNetid' => 'One of the Netids is not a valid student name.',
 				'distinct' => 'The provided students contain duplicate/incorrect values.',
 				'length' => 'Provide at least ' . MINIMUM_NUMBER_OF_PREFERENCES . ' and at most ' . MAXIMUM_NUMBER_OF_PREFERENCES . ' students'
 			)

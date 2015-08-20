@@ -123,6 +123,7 @@ class Users extends CI_Controller {
 			'Net ID',
 			array(
 				'required',
+				'strtolower',
 				array(
 					'notAlreadyRegistered',
 					array($this->user, 'notAlreadyRegistered')

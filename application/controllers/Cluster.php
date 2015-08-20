@@ -3,7 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Cluster extends Admin_Controller {
 
-    var $fileName = 'clustering/StudClust/Dpref.csv';
+    //var $fileName = 'clustering/StudClust/Dpref.csv';
+    //var $directoryName = 'clustering'.DIRECTORY_SEPARATOR;//."StudClust".DIRECTORY_SEPARATOR;
 
     /**
      * Shortcut to $this->output()
@@ -22,6 +23,7 @@ class Cluster extends Admin_Controller {
      */
     public function output()
     {
+	$directory = APPPATH.'clustering'.DIRECTORY_SEPARATOR.'StudClust'.DIRECTORY_SEPARATOR;
         $students = $this->clustering->generate();
 
         $output = '';
@@ -38,7 +40,7 @@ class Cluster extends Admin_Controller {
             $output = rtrim($output, $delimiter) . PHP_EOL;
         }
 
-        file_put_contents("clustering/StudClust/Dpref.csv", $output);
+        file_put_contents($directory."Dpref.csv", $output);
 
         $roles = $this->clustering->generateRoles();
 
@@ -75,7 +77,7 @@ class Cluster extends Admin_Controller {
             $output = rtrim($output, $delimiter) . PHP_EOL;
         }
 
-        file_put_contents("clustering/StudClust/Dbelbin.csv", $output);
+        file_put_contents($directory."Dbelbin.csv", $output);
 
         $this->load->page('cluster/output');
     }
@@ -87,7 +89,7 @@ class Cluster extends Admin_Controller {
 
     public function download($fileName)
     {
-        $fullFileName = 'clustering/StudClust/' . $fileName . '.csv';
+        $fullFileName = APPPATH.'clustering/StudClust/' . $fileName . '.csv';
         header("Pragma: public", true);
         header("Expires: 1"); // set expiration time
         header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
