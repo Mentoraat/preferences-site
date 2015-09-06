@@ -1,5 +1,6 @@
 #ModPagespeed off
-
+Options +SymLinksIfOwnerMatch
+php_value short_open_tag 1
 RewriteEngine on
 
 RewriteCond $1 !^(index\.php|resources|robots\.txt)

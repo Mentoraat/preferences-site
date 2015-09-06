@@ -53,7 +53,7 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-	define('ENVIRONMENT', 'development');
+	define('ENVIRONMENT', 'production');
 
 /*
  *---------------------------------------------------------------
@@ -223,6 +223,7 @@ switch (ENVIRONMENT)
 
 	// Path to the system folder
 	define('BASEPATH', str_replace('\\', '/', $system_path));
+
 
 	// Path to the front controller (this file)
 	define('FCPATH', dirname(__FILE__).'/');

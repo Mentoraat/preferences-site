@@ -30,9 +30,16 @@ class Cluster extends Admin_Controller {
 
         $delimiter = ',';
 
+	foreach ($students as $name => $preferences)
+	{
+	    $output .= rtrim($name, ' ') . ' ';
+	}
+
+	$output = rtrim($output, ' ') . PHP_EOL;
+
         foreach ($students as $name => $preferences)
         {
-            foreach ($preferences as $preference)
+	    foreach ($preferences as $prefers => $preference)
             {
                 $output .= $preference . $delimiter;
             }
@@ -46,9 +53,28 @@ class Cluster extends Admin_Controller {
 
         $output = '';
 
+	$acceptedRoles = array(
+                "Bedrijfsman",
+                "Brononderzoeker",
+                "Plant",
+                "Monitor",
+                "Vormer",
+                "Voorzitter",
+                "Zorgdrager",
+                "Groepswerker",
+                "Specialist"
+            );
+	
+	foreach ($acceptedRoles as $role)
+	{
+		$output .= $role . ' ';
+	}
+
+	$output = rtrim($output, ' ') . PHP_EOL;
+
         foreach ($roles as $student => $role)
         {
-            $acceptedRoles = array(
+	    $acceptedRoles = array(
                 "Bedrijfsman",
                 "Brononderzoeker",
                 "Plant",

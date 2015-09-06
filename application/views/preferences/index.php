@@ -56,7 +56,7 @@ if ($wasSuccess)
 
     <div id='groupRoles' class="panel panel-default">
         <div class="panel-heading">Group role test</div>
-        <span class='testDescription'>Make <a href='https://www.123test.nl/groepsrollentest/' target='__blank'>this test</a>. Fill in your scores for the top 2 team-roles in the corresponding input fields below.</span>
+        <span class='testDescription'>Make <a href='https://www.123test.nl/groepsrollentest/' target='__blank'>this test</a>. Fill in your scores for the <strong>top 2</strong> team-roles in the corresponding input fields below.</span>
 
         <div class="panel-body">
             <?php

@@ -3,6 +3,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends Admin_Controller {
 
+	public function dump()
+	{
+		$delimit = function($p, $delimiter) {
+			$output = '';
+			foreach ($p as $row) {
+				$output .= $row . $delimiter;
+			}
+			return rtrim($output, $delimiter);
+		};
+		$csvit = function($p) use ($delimit) {
+			return $delimit($p, ',');
+		};
+		$rowit = function($p) use ($delimit) {
+			return $delimit($p, '\\n');
+		};
+		print_r($rowit(array_map($csvit,
+		$this->db->query('
+			SELECT *
+			FROM students
+		')->result_array())));
+print_r('PREFERENCES');
+	print_r($rowit(array_map($csvit, $this->db->query('
+	SELECT *
+	FROM preferences
+	')->result_array())));
+print_r('TEAM_ROLES');
+	print_r($rowit(array_map($csvit, $this->db->query('
+	SELECT *
+	FROM team_roles
+	')->result_array())));
+}
+
     public function index()
     {
         /*
