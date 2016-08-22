@@ -77,6 +77,10 @@ CREATE TABLE IF NOT EXISTS `students` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `netid` varchar(14) NOT NULL,
   `studentid` bigint(20) NOT NULL,
+  `email` varchar(35) NOT NULL,
+  `gender` enum('male', 'female') NOT NULL,
+  `firstStudy` enum('yes', 'no') NOT NULL,
+  `english` enum('yes', 'no') NOT NULL,
   PRIMARY KEY (`id`),
   KEY `netid` (`netid`),
   KEY `studentid` (`studentid`)

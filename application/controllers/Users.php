@@ -191,14 +191,32 @@ class Users extends CI_Controller {
 				'required',
 				array(
 					'isYesOrNo',
-					function($gender)
+					function($first)
 					{
-						return in_array($gender, array('yes', 'no'));
+						return in_array($first, array('yes', 'no'));
 					}
 				)
 			),
 			array(
 				'isYesOrNo' => 'It is either your first study or not.'
+			)
+		);
+
+		$this->form_validation->set_rules(
+			'english',
+			'English mentoraat',
+			array(
+				'required',
+				array(
+					'isYesOrNo',
+					function($english)
+					{
+						return in_array($english, array('yes', 'no'));
+					}
+				)
+			),
+			array(
+				'isYesOrNo' => 'Mentoraat is either in English or not.'
 			)
 		);
 
@@ -214,7 +232,8 @@ class Users extends CI_Controller {
 			$this->student->insertNewStudent($netid, $studentid,
 				$this->input->post('email'),
 				$this->input->post('gender'),
-				$this->input->post('first')
+				$this->input->post('first'),
+				$this->input->post('english')
 			);
 
 			return redirect('');

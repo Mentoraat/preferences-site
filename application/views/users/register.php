@@ -69,6 +69,20 @@ $errors = $this->form_validation->error_array();
             </div>
         </div>
 
+        <div class="input-group english">
+            <span class="input-group-addon">English mentoraat:</span>
+            <div class="form-control">
+                <div class="labels">
+                    <label for='english'>Yes</label>
+                    <label for='english'>No</label>
+                </div>
+                <div class="radios">
+                    <input name='english' type='radio' value="yes" <?= ((isset($errors['english']) || set_value('english') !== 'yes') ? '' : 'checked'); ?>/>
+                    <input name='english' type='radio' value="no" <?= ((isset($errors['english']) || set_value('english') !== 'no') ? '' : 'checked'); ?>/>
+                </div>
+            </div>
+        </div>
+
         <button type='submit' class="btn btn-success">Register</button>
     </form>
 </div>

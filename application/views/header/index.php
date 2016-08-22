@@ -4,7 +4,7 @@
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<?php linkCSS('vendor/bootstrap.min'); ?>
+		<?php linkCSS('../vendor/bootstrap-3.3.4-dist/css/bootstrap.min'); ?>
 		<?php linkCSS('site'); ?>
 		<?php linkCSS($this->router->class); ?>
 

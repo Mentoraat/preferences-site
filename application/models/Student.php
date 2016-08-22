@@ -33,16 +33,17 @@ class Student extends CI_Model {
         return isset($value);
     }
 
-    public function insertNewStudent($netid, $studentid, $email, $gender, $firstStudy)
+    public function insertNewStudent($netid, $studentid, $email, $gender, $firstStudy, $english)
     {
         $this->db->query('
-        INSERT INTO students (netid, studentid, email, gender, firstStudy)
+        INSERT INTO students (netid, studentid, email, gender, firstStudy, english)
         VALUES (
             ' . $this->db->escape($netid) . ',
             ' . $this->db->escape($studentid) . ',
             ' . $this->db->escape($email) . ',
             ' . $this->db->escape($gender) . ',
-            ' . $this->db->escape($firstStudy) . '
+            ' . $this->db->escape($firstStudy) . ',
+            ' . $this->db->escape($english) . '
             )
         ');
     }
