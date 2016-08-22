@@ -101,7 +101,7 @@ class Users extends CI_Controller {
 	 */
 	public function register($status = '')
 	{
-		$this->load->page('users/register', array('status' => $status));
+		$this->load->page('users/register', array('postUrl' => 'users/tryRegister', 'status' => $status));
 	}
 
 	/**
@@ -118,109 +118,7 @@ class Users extends CI_Controller {
 			return redirect('users/register/closed');
 		}
 
-		$this->form_validation->set_rules(
-			'netid',
-			'Net ID',
-			array(
-				'required',
-				'strtolower',
-				'regex_match[/^\w+$/]',
-				array(
-					'notAlreadyRegistered',
-					array($this->user, 'notAlreadyRegistered')
-				)
-			),
-			array(
-				'regex_match' => 'Your NetId can only contain word characters',
-				'notAlreadyRegistered' => 'This Net ID is already registered. If this is not you, please contact an administrator.'
-			)
-		);
-
-		$this->form_validation->set_rules(
-			'password',
-			'Password',
-			'trim|required'
-		);
-
-		$this->form_validation->set_rules(
-			'passconf',
-			'Password Confirmation',
-			'trim|required|matches[password]'
-		);
-
-		$this->form_validation->set_rules(
-			'studentid',
-			'Student ID',
-			array(
-				'required',
-				'integer',
-				'greater_than[1000000]'
-			)
-		);
-
-		$this->form_validation->set_rules(
-			'email',
-			'E-mail address',
-			array(
-				'required',
-				'trim',
-				'valid_email'
-			)
-		);
-
-		$this->form_validation->set_rules(
-			'gender',
-			'Gender',
-			array(
-				'required',
-				array(
-					'isMaleOrFemale',
-					function($gender)
-					{
-						return in_array($gender, array('male', 'female'));
-					}
-				)
-			),
-			array(
-				'isMaleOrFemale' => 'Your gender must be male of female.'
-			)
-		);
-
-		$this->form_validation->set_rules(
-			'first',
-			'First study',
-			array(
-				'required',
-				array(
-					'isYesOrNo',
-					function($first)
-					{
-						return in_array($first, array('yes', 'no'));
-					}
-				)
-			),
-			array(
-				'isYesOrNo' => 'It is either your first study or not.'
-			)
-		);
-
-		$this->form_validation->set_rules(
-			'english',
-			'English mentoraat',
-			array(
-				'required',
-				array(
-					'isYesOrNo',
-					function($english)
-					{
-						return in_array($english, array('yes', 'no'));
-					}
-				)
-			),
-			array(
-				'isYesOrNo' => 'Mentoraat is either in English or not.'
-			)
-		);
+		$this->user->setFormValidationRegistration();
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->register();
@@ -231,6 +129,7 @@ class Users extends CI_Controller {
 			$studentid = $this->input->post('studentid');
 
 			$this->user->register($netid, $password);
+			$this->user->setUser($netid);
 			$this->student->insertNewStudent($netid, $studentid,
 				$this->input->post('email'),
 				$this->input->post('gender'),

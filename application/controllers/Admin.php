@@ -90,6 +90,28 @@ print_r('TEAM_ROLES');
         $this->load->page('admin/index', $data);
     }
 
+		public function registeruser()
+		{
+			$this->load->page('users/register', array('postUrl' => 'admin/tryUserRegister', 'status' => '', 'message' => 'NOTE: THIS PAGE DOES NOT HAVE ANY VALIDATION. BE CAREFUL'));
+		}
+
+		public function tryUserRegister()
+		{
+			$password = 'NO_PASSWORD_SET';
+			$netid = $this->input->post('netid');
+			$studentid = $this->input->post('studentid');
+
+			$this->user->register($netid, $password);
+			$this->student->insertNewStudent($netid, $studentid,
+				$this->input->post('email'),
+				$this->input->post('gender'),
+				$this->input->post('first'),
+				$this->input->post('english')
+			);
+
+			return redirect('admin/registeruser');
+		}
+
     public function registration($newStatus)
     {
         $this->db->query('

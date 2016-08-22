@@ -8,19 +8,25 @@ if ($status === 'closed')
     <?php
 }
 
+if (isset($message))
+{
+  echo $message;
+}
+
 $errors = $this->form_validation->error_array();
 ?>
 
 <div class='center' id='register'>
     <?=validation_errors(); ?>
 
-    <?=form_open('users/tryRegister'); ?>
+    <?=form_open($postUrl); ?>
 
         <div class="input-group">
             <label for='netid' class="input-group-addon">Net ID:</label>
             <input name='netid' type='text' class="form-control" value='<?= (isset($errors['netid']) ? '' : set_value('netid')); ?>' />
         </div>
 
+    <?php if ($postUrl !== 'admin/tryUserRegister') { ?>
         <div class="input-group">
             <label for='password' class="input-group-addon">Password:</label>
             <input name='password' type='password' class="form-control" />
@@ -30,6 +36,7 @@ $errors = $this->form_validation->error_array();
             <label for='passconf' class="input-group-addon">Retype password:</label>
             <input name='passconf' type='password' class="form-control" />
         </div>
+    <?php } ?>
 
         <div class="input-group">
             <label for='studentid' class="input-group-addon">Student ID:</label>
