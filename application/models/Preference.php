@@ -50,22 +50,25 @@ class Preference extends CI_Model {
     {
         $netid = $this->user->getNetid();
 
-        $this->db->query('
-        DELETE FROM preferences
-        WHERE studentid = ' . $this->db->escape($netid)
-        );
-
-        $query = '
-        INSERT INTO preferences (studentid, prefers_studentid, `order`)
-        VALUES ';
-
-        $i = 1;
-        foreach ($names as $name)
+        if (!empty($names))
         {
-            $query .= '(' . $this->db->escape($netid) . ',' . $this->db->escape($name) . ',' . $i++ . '),';
-        }
+          $this->db->query('
+          DELETE FROM preferences
+          WHERE studentid = ' . $this->db->escape($netid)
+          );
 
-        $this->db->query(rtrim($query, ','));
+          $query = '
+          INSERT INTO preferences (studentid, prefers_studentid, `order`)
+          VALUES ';
+
+          $i = 1;
+          foreach ($names as $name)
+          {
+              $query .= '(' . $this->db->escape($netid) . ',' . $this->db->escape($name) . ',' . $i++ . '),';
+          }
+
+          $this->db->query(rtrim($query, ','));
+        }
 
         $this->db->query('
         DELETE FROM team_roles

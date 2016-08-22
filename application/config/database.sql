@@ -94,8 +94,8 @@ CREATE TABLE IF NOT EXISTS `students` (
 -- Structuur van  tabel mentoraat.team_roles wordt geschreven
 CREATE TABLE IF NOT EXISTS `team_roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `netid` varchar(14) NOT NULL DEFAULT '0',
-  `role` enum('Analyst','Chairman','Completer','Driver','Executive','Expert','Explorer','Innovater','TeamPlayer') NOT NULL DEFAULT 'Analyst',
+  `netid` varchar(14) NOT NULL,
+  `role` enum('Bedrijfsman', 'Brononderzoeker', 'Plant', 'Monitor', 'Vormer', 'Voorzitter', 'Zorgdrager', 'Groepswerker', 'Specialist') NOT NULL,
   `percentage` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `Index 2` (`netid`,`role`),

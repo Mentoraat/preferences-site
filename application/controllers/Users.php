@@ -124,12 +124,14 @@ class Users extends CI_Controller {
 			array(
 				'required',
 				'strtolower',
+				'regex_match[/^\w+$/]',
 				array(
 					'notAlreadyRegistered',
 					array($this->user, 'notAlreadyRegistered')
 				)
 			),
 			array(
+				'regex_match' => 'Your NetId can only contain word characters',
 				'notAlreadyRegistered' => 'This Net ID is already registered. If this is not you, please contact an administrator.'
 			)
 		);

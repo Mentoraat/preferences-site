@@ -54,58 +54,63 @@ class Preferences extends Authenticated_Controller {
 		);
 
 		$seenNames = array();
-		$length = NULL;
-
 		$that = $this;
-		$distinctFunction = function ($name) use (&$seenNames, &$that)
+
+		// If no name was provided, ignore all names validation
+		if (!empty(array_filter($this->input->post('names'))))
 		{
-			$name = strtolower($name);
-			if (in_array($name, $seenNames) || $that->user->isCurrentNetid($name))
-			{
-				return FALSE;
-			}
-			else
-			{
-				$seenNames[] = $name;
-				return TRUE;
-			}
-		};
+			$length = NULL;
 
-		$lengthFunction = function ($name) use (&$length, &$that)
-		{
-			if ($length === NULL)
+			$distinctFunction = function ($name) use (&$seenNames, &$that)
 			{
-				$numberOfPreferences = count(array_filter($that->input->post('names')));
-				$length = $numberOfPreferences >= MINIMUM_NUMBER_OF_PREFERENCES
-					&& $numberOfPreferences <= MAXIMUM_NUMBER_OF_PREFERENCES;
-			}
+				$name = strtolower($name);
+				if (in_array($name, $seenNames) || $that->user->isCurrentNetid($name))
+				{
+					return FALSE;
+				}
+				else
+				{
+					$seenNames[] = $name;
+					return TRUE;
+				}
+			};
 
-			return $length;
-		};
+			$lengthFunction = function ($name) use (&$length, &$that)
+			{
+				if ($length === NULL)
+				{
+					$numberOfPreferences = count(array_filter($that->input->post('names')));
+					$length = $numberOfPreferences >= MINIMUM_NUMBER_OF_PREFERENCES
+						&& $numberOfPreferences <= MAXIMUM_NUMBER_OF_PREFERENCES;
+				}
 
-		$this->form_validation->set_rules(
-			'names[]',
-			'Names',
-			array(
+				return $length;
+			};
+
+			$this->form_validation->set_rules(
+				'names[]',
+				'Names',
 				array(
-					'existsByNetid',
-					array($this->student, 'existsByNetid')
+					array(
+						'existsByNetid',
+						array($this->student, 'existsByNetid')
+					),
+					array(
+						'distinct',
+						$distinctFunction
+					),
+					array(
+						'length',
+						$lengthFunction
+					)
 				),
 				array(
-					'distinct',
-					$distinctFunction
-				),
-				array(
-					'length',
-					$lengthFunction
+					'existsByNetid' => 'One of the Netids is not a valid student name.',
+					'distinct' => 'The provided students contain duplicate/incorrect values.',
+					'length' => 'Provide at least ' . MINIMUM_NUMBER_OF_PREFERENCES . ' and at most ' . MAXIMUM_NUMBER_OF_PREFERENCES . ' students'
 				)
-			),
-			array(
-				'existsByNetid' => 'One of the Netids is not a valid student name.',
-				'distinct' => 'The provided students contain duplicate/incorrect values.',
-				'length' => 'Provide at least ' . MINIMUM_NUMBER_OF_PREFERENCES . ' and at most ' . MAXIMUM_NUMBER_OF_PREFERENCES . ' students'
-			)
-		);
+			);
+		}
 
 		$sumOfRoles = 0;
 		$acceptedRoles = array(
