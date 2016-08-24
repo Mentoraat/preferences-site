@@ -63,15 +63,17 @@ $errors = $this->form_validation->error_array();
         </div>
 
         <div class="input-group first-study">
-            <span class="input-group-addon">First study:</span>
+            <span class="input-group-addon">Previous education:</span>
             <div class="form-control">
                 <div class="labels">
-                    <label for='first'>Yes</label>
-                    <label for='first'>No</label>
+                    <label for='first'>High school</label>
+                    <label for='first'>Computer Science in Delft</label>
+                    <label for='first'>Other higher education study</label>
                 </div>
                 <div class="radios">
-                    <input name='first' type='radio' value="yes" <?= ((isset($errors['first']) || set_value('first') !== 'yes') ? '' : 'checked'); ?>/>
-                    <input name='first' type='radio' value="no" <?= ((isset($errors['first']) || set_value('first') !== 'no') ? '' : 'checked'); ?>/>
+                    <input name='first' type='radio' value="school" <?= ((isset($errors['first']) || set_value('first') !== 'yes') ? '' : 'checked'); ?>/>
+                    <input name='first' type='radio' value="cs" <?= ((isset($errors['first']) || set_value('first') !== 'no') ? '' : 'checked'); ?>/>
+                    <input name='first' type='radio' value="other" <?= ((isset($errors['first']) || set_value('first') !== 'no') ? '' : 'checked'); ?>/>
                 </div>
             </div>
         </div>
@@ -82,10 +84,12 @@ $errors = $this->form_validation->error_array();
                 <div class="labels">
                     <label for='english'>Yes</label>
                     <label for='english'>No</label>
+                    <label for='english'>No preference</label>
                 </div>
                 <div class="radios">
                     <input name='english' type='radio' value="yes" <?= ((isset($errors['english']) || set_value('english') !== 'yes') ? '' : 'checked'); ?>/>
                     <input name='english' type='radio' value="no" <?= ((isset($errors['english']) || set_value('english') !== 'no') ? '' : 'checked'); ?>/>
+                    <input name='english' type='radio' value="nopref" <?= ((isset($errors['english']) || set_value('english') !== 'nopref') ? '' : 'checked'); ?>/>
                 </div>
             </div>
         </div>

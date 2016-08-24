@@ -15,7 +15,8 @@ class Preferences extends Authenticated_Controller {
 			'preferences' => $this->preference->get(),
 			'roles' => $this->preference->getRoles(),
 			'status' => $this->configKey->get(PREFERENCES_KEY) === 'Close',
-			'wasSuccess' => $wasSuccess === 'success'
+			'wasSuccess' => $wasSuccess === 'success',
+			'formUrl' => 'preferences/update'
 		);
 
 		$this->load->page('preferences/index', $data);

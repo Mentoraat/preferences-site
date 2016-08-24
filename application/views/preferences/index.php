@@ -29,7 +29,7 @@ if ($wasSuccess)
     </div>
 </div>
 
-<?php echo form_open('preferences/update'); ?>
+<?php echo form_open($formUrl); ?>
 
     <input class='hidden' type='text' name='userid' value='<?php echo isset($userid) ? $userid : set_value('userid'); ?>' />
 

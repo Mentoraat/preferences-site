@@ -87,6 +87,15 @@ class User extends CI_Model {
         return $this->id != NULL;
     }
 
+    public function getUserIdFromNetId($netId)
+    {
+        return $this->db->query('
+            SELECT id
+            FROM users
+            WHERE netid = ' . $this->db->escape($netId)
+        )->first_row()->id;
+    }
+
     public function isAdmin()
     {
         if ($this->admin === NULL && $this->getUserId())
@@ -228,12 +237,12 @@ class User extends CI_Model {
   					'isYesOrNo',
   					function($first)
   					{
-  						return in_array($first, array('yes', 'no'));
+  						return in_array($first, array('school', 'cs', 'other'));
   					}
   				)
   			),
   			array(
-  				'isYesOrNo' => 'It is either your first study or not.'
+  				'isYesOrNo' => 'Your previous education should be high school, computer science or an other study.'
   			)
   		);
 

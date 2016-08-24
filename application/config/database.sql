@@ -75,15 +75,16 @@ CREATE TABLE IF NOT EXISTS `preferences` (
 -- Structuur van  tabel mentoraat.students wordt geschreven
 CREATE TABLE IF NOT EXISTS `students` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `netid` varchar(14) NOT NULL,
+  `netid` varchar(25) NOT NULL,
   `studentid` bigint(20) NOT NULL,
   `email` varchar(35) NOT NULL,
   `gender` enum('male', 'female') NOT NULL,
-  `firstStudy` enum('yes', 'no') NOT NULL,
+  `firstStudy` enum('school', 'cs', 'other') NOT NULL,
   `english` enum('yes', 'no') NOT NULL,
   PRIMARY KEY (`id`),
   KEY `netid` (`netid`),
-  KEY `studentid` (`studentid`)
+  UNIQUE KEY `studentid` (`studentid`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- Dumpen data van tabel mentoraat.students: ~4 rows (ongeveer)
@@ -113,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `netid` varchar(14) NOT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_netid_students_netid` (`netid`)
+  UNIQUE KEY `user_netid_students_netid` (`netid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- Dumpen data van tabel mentoraat.users: ~1 rows (ongeveer)

@@ -112,6 +112,29 @@ print_r('TEAM_ROLES');
 			return redirect('admin/registeruser');
 		}
 
+		public function setpreferences($userId=0)
+		{
+			if ($userId === 0)
+			{
+				$this->load->page('admin/setpreferences');
+				return;
+			}
+
+			$data = array(
+				'wasSuccess' => false,
+				'userId' => $this->user->getUserIdFromNetId($userId),
+				'formUrl' => 'admin/setpreferencesforuser'
+			);
+			$this->load->page('preferences/index', $data);
+		}
+
+		public function setpreferencesforuser()
+		{
+			$this->preference->update(array_filter($this->input->post('names')), $this->input->post('role'));
+
+			return redirect('admin/setpreferences');
+		}
+
     public function registration($newStatus)
     {
         $this->db->query('

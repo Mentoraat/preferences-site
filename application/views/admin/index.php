@@ -13,6 +13,9 @@ showAsList($students, function($student) {
 <h4>Register a user</h4>
 <a href="<?=site_url('admin/registeruser'); ?>">Register a user</a>
 
+<h4>Update preferences for a user</h4>
+<a href="<?=site_url('admin/setpreferences'); ?>">Update preferences for a user</a>
+
 <h4>Open/Close the registration process</h4>
 <p>Currently the registration is: <?=$registrationStatus; ?></p>
 <a href="<?=site_url('admin/registration/' . $newRegistrationStatus); ?>"><?=$newRegistrationStatus; ?> registration</a>
