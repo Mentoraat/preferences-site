@@ -71,9 +71,9 @@ $errors = $this->form_validation->error_array();
                     <label for='first'>Other higher education study</label>
                 </div>
                 <div class="radios">
-                    <input name='first' type='radio' value="school" <?= ((isset($errors['first']) || set_value('first') !== 'yes') ? '' : 'checked'); ?>/>
-                    <input name='first' type='radio' value="cs" <?= ((isset($errors['first']) || set_value('first') !== 'no') ? '' : 'checked'); ?>/>
-                    <input name='first' type='radio' value="other" <?= ((isset($errors['first']) || set_value('first') !== 'no') ? '' : 'checked'); ?>/>
+                    <input name='first' type='radio' value="school" <?= ((isset($errors['first']) || set_value('first') !== 'school') ? '' : 'checked'); ?>/>
+                    <input name='first' type='radio' value="cs" <?= ((isset($errors['first']) || set_value('first') !== 'cs') ? '' : 'checked'); ?>/>
+                    <input name='first' type='radio' value="other" <?= ((isset($errors['first']) || set_value('first') !== 'other') ? '' : 'checked'); ?>/>
                 </div>
             </div>
         </div>

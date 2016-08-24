@@ -16,6 +16,32 @@ class Cluster extends Admin_Controller {
         $this->output();
     }
 
+    private function generateClustering($students)
+    {
+      $output = '';
+
+      $delimiter = ',';
+
+      foreach ($students as $name => $preferences)
+    	{
+    	    $output .= rtrim($name, ' ') . ' ';
+    	}
+
+    	$output = rtrim($output, ' ') . PHP_EOL;
+
+      foreach ($students as $name => $preferences)
+      {
+  	      foreach ($preferences as $prefers => $preference)
+          {
+              $output .= $preference . $delimiter;
+          }
+
+          $output = rtrim($output, $delimiter) . PHP_EOL;
+      }
+
+      return $output;
+    }
+
     /**
      * Output in matrix format the content of the preferences table.
      *
@@ -24,34 +50,23 @@ class Cluster extends Admin_Controller {
     public function output()
     {
 	$directory = APPPATH.'clustering'.DIRECTORY_SEPARATOR.'StudClust'.DIRECTORY_SEPARATOR;
-        $students = $this->clustering->generate();
+        $students = $this->clustering->generate(false);
 
-        $output = '';
+        $output = $this->generateClustering($students);
 
-        $delimiter = ',';
+        file_put_contents($directory."DprefEnglish.csv", $output);
 
-	foreach ($students as $name => $preferences)
-	{
-	    $output .= rtrim($name, ' ') . ' ';
-	}
+        $students = $this->clustering->generate(true);
 
-	$output = rtrim($output, ' ') . PHP_EOL;
+        $output = $this->generateClustering($students);
 
-        foreach ($students as $name => $preferences)
-        {
-	    foreach ($preferences as $prefers => $preference)
-            {
-                $output .= $preference . $delimiter;
-            }
+        file_put_contents($directory."DprefDutch.csv", $output);
 
-            $output = rtrim($output, $delimiter) . PHP_EOL;
-        }
-
-        file_put_contents($directory."Dpref.csv", $output);
 
         $roles = $this->clustering->generateRoles();
 
         $output = '';
+        $delimiter = ',';
 
 	$acceptedRoles = array(
                 "Bedrijfsman",
@@ -64,7 +79,7 @@ class Cluster extends Admin_Controller {
                 "Groepswerker",
                 "Specialist"
             );
-	
+
 	foreach ($acceptedRoles as $role)
 	{
 		$output .= $role . ' ';

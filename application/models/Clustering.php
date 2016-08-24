@@ -9,9 +9,9 @@ class Clustering extends CI_Model {
      *
      * @return array The array with all saved preferences.
      */
-    public function generate()
+    public function generate($dutch)
     {
-        $preferences = $this->db->query("
+        $query = "
             SELECT
                 allstudents.id,
                 allstudents.netid,
@@ -26,8 +26,22 @@ class Clustering extends CI_Model {
                 AS allstudents
             JOIN students
                 AS otherstudents
-            ORDER BY allstudents.id, otherstudents.id
-	    ")->result();
+            WHERE NOT allstudents.firstStudy = 'cs'
+                AND NOT otherstudents.firstStudy = 'cs'
+	      ";
+
+        if ($dutch)
+        {
+          $query .= ' AND allstudents.english = "no"
+              AND otherstudents.english = "no"';
+        }
+        else
+        {
+          $query .= ' AND NOT allstudents.english = "no"
+              AND NOT otherstudents.english = "no"';
+        }
+
+        $preferences = $this->db->query($query . " ORDER BY allstudents.id, otherstudents.id")->result();
 
         return array_reduce($preferences, function(&$result, $prefered) {
             $result[$prefered->netid][$prefered->prefers_studentid] = $prefered->order;

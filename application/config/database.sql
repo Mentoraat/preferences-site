@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `students` (
   `email` varchar(35) NOT NULL,
   `gender` enum('male', 'female') NOT NULL,
   `firstStudy` enum('school', 'cs', 'other') NOT NULL,
-  `english` enum('yes', 'no') NOT NULL,
+  `english` enum('yes', 'no', 'nopref') NOT NULL,
   PRIMARY KEY (`id`),
   KEY `netid` (`netid`),
   UNIQUE KEY `studentid` (`studentid`),
