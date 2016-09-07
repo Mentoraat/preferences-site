@@ -88,13 +88,25 @@ class Preferences extends Authenticated_Controller {
 				return $length;
 			};
 
+			$existsFunction = function($name) use (&$that)
+			{
+				$bool = $that->student->existsByNetid($name);
+				if (!$bool)
+				{
+					$that->form_validation->set_message('existsByNetid', 'Netid ' . $name . ' could not be found in the database.');
+					return FALSE;
+				}
+
+				return TRUE;
+			};
+
 			$this->form_validation->set_rules(
 				'names[]',
 				'Names',
 				array(
 					array(
 						'existsByNetid',
-						array($this->student, 'existsByNetid')
+						$existsFunction
 					),
 					array(
 						'distinct',
@@ -106,7 +118,6 @@ class Preferences extends Authenticated_Controller {
 					)
 				),
 				array(
-					'existsByNetid' => 'One of the Netids is not a valid student name.',
 					'distinct' => 'The provided students contain duplicate/incorrect values.',
 					'length' => 'Provide at least ' . MINIMUM_NUMBER_OF_PREFERENCES . ' and at most ' . MAXIMUM_NUMBER_OF_PREFERENCES . ' students'
 				)
