@@ -2,7 +2,7 @@ rng(1);
 
 fid = fopen('Dbelbin.csv','r');
 l = fgetl(fid);
-colnames = regexp(l,',','split');
+colnames = regexp(l,' ','split');
 ncols = length(colnames);
 Dbelbin = textscan(fid,repmat('%d',1,ncols),'delimiter',',','collectoutput',true);
 fclose(fid);
@@ -10,7 +10,7 @@ Dbelbin = Dbelbin{1};
 
 fid = fopen('Dpref.csv','r');
 l = fgetl(fid);
-studentnames = regexp(l,',','split');
+studentnames = regexp(l,' ','split');
 ncols = length(studentnames);
 Dpref = textscan(fid,repmat('%d',1,ncols),'delimiter',',','collectoutput',true);
 fclose(fid);

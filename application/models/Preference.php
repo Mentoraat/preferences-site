@@ -46,9 +46,12 @@ class Preference extends CI_Model {
      * @param  array $names The netids of the preferred students.
      * @return void
      */
-    public function update($names, $roles)
+    public function update($names, $roles, $netid='')
     {
-        $netid = $this->user->getNetid();
+        if (!$netid)
+        {
+          $netid = $this->user->getNetid();
+        }
 
         if (!empty($names))
         {

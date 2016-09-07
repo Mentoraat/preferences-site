@@ -122,7 +122,7 @@ print_r('TEAM_ROLES');
 
 			$data = array(
 				'wasSuccess' => false,
-				'userId' => $this->user->getUserIdFromNetId($userId),
+				'userid' => $this->user->getUserIdFromNetId($userId),
 				'formUrl' => 'admin/setpreferencesforuser'
 			);
 			$this->load->page('preferences/index', $data);
@@ -130,7 +130,9 @@ print_r('TEAM_ROLES');
 
 		public function setpreferencesforuser()
 		{
-			$this->preference->update(array_filter($this->input->post('names')), $this->input->post('role'));
+			$netid = $this->db->query("SELECT netid FROM users WHERE id=" . $this->db->escape($this->input->post('userid')))->first_row()->netid;
+
+			$this->preference->update(array_filter($this->input->post('names')), $this->input->post('role'), $netid);
 
 			return redirect('admin/setpreferences');
 		}

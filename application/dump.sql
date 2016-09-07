@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS `failedlogins`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `failedlogins` (
-  `netid` varchar(14) NOT NULL,
+  `netid` varchar(25) NOT NULL,
   `times` int(11) NOT NULL,
   PRIMARY KEY (`netid`),
   CONSTRAINT `FK__users` FOREIGN KEY (`netid`) REFERENCES `users` (`netid`)
@@ -67,8 +67,8 @@ DROP TABLE IF EXISTS `preferences`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `preferences` (
-  `studentid` varchar(14) NOT NULL,
-  `prefers_studentid` varchar(14) NOT NULL,
+  `studentid` varchar(25) NOT NULL,
+  `prefers_studentid` varchar(25) NOT NULL,
   `order` int(11) NOT NULL,
   UNIQUE KEY `unique_studentid_preferences_order` (`studentid`,`order`),
   UNIQUE KEY `unique_studentid_preferences_studentid` (`studentid`,`prefers_studentid`),
@@ -107,7 +107,7 @@ DROP TABLE IF EXISTS `team_roles`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `team_roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `netid` varchar(14) NOT NULL DEFAULT '0',
+  `netid` varchar(25) NOT NULL DEFAULT '0',
   `role` enum('Bedrijfsman','Brononderzoeker','Plant','Monitor','Vormer','Voorzitter','Zorgdrager','Groepswerker','Specialist') NOT NULL,
   `percentage` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -125,7 +125,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `netid` varchar(14) NOT NULL,
+  `netid` varchar(25) NOT NULL,
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_netid_students_netid` (`netid`)
