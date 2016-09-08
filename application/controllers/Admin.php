@@ -112,9 +112,9 @@ print_r('TEAM_ROLES');
 			return redirect('admin/registeruser');
 		}
 
-		public function setpreferences($userId=0)
+		public function setpreferences($netid=0)
 		{
-			if ($userId === 0)
+			if ($netid === 0)
 			{
 				$this->load->page('admin/setpreferences');
 				return;
@@ -122,8 +122,10 @@ print_r('TEAM_ROLES');
 
 			$data = array(
 				'wasSuccess' => false,
-				'userid' => $this->user->getUserIdFromNetId($userId),
-				'formUrl' => 'admin/setpreferencesforuser'
+				'userid' => $this->user->getUserIdFromNetId($netid),
+				'formUrl' => 'admin/setpreferencesforuser',
+				'preferences' => $this->preference->get($netid),
+				'roles' => $this->preference->getRoles($netid)
 			);
 			$this->load->page('preferences/index', $data);
 		}

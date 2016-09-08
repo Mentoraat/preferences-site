@@ -39,26 +39,19 @@ class Preferences extends Authenticated_Controller {
 			return redirect('preferences/index');
 		}
 
-		$this->form_validation->set_rules(
-			'userid',
-			'Net ID',
-			array(
-				'required',
-				array(
-					'isCurrentUser',
-					array($this->user, 'isCurrentUser')
-				)
-			),
-			array(
-				'isCurrentUser' => 'Net ID does not exist.'
-			)
+		$data = array(
+			'userid' => $this->input->post('userid'),
+			'role' => $this->input->post('role'),
+			'names' => array_filter($this->input->post('names'))
 		);
+		$this->form_validation->set_data($data);
 
 		$seenNames = array();
 		$that = $this;
 
+		$filteredNames = array_filter($this->input->post('names'));
 		// If no name was provided, ignore all names validation
-		if (!empty(array_filter($this->input->post('names'))))
+		if (!empty($filteredNames))
 		{
 			$length = NULL;
 
@@ -90,10 +83,10 @@ class Preferences extends Authenticated_Controller {
 
 			$existsFunction = function($name) use (&$that)
 			{
-				$bool = $that->student->existsByNetid($name);
+				$bool = $that->student->existsByNetid(strtolower($name));
 				if (!$bool)
 				{
-					$that->form_validation->set_message('existsByNetid', 'Netid ' . $name . ' could not be found in the database.');
+					$that->form_validation->set_message('existsByNetid', 'Netid "' . $name . '" could not be found in the database.');
 					return FALSE;
 				}
 
@@ -123,6 +116,21 @@ class Preferences extends Authenticated_Controller {
 				)
 			);
 		}
+
+		$this->form_validation->set_rules(
+			'userid',
+			'Net ID',
+			array(
+				'required',
+				array(
+					'isCurrentUser',
+					array($this->user, 'isCurrentUser')
+				)
+			),
+			array(
+				'isCurrentUser' => 'Net ID does not exist.'
+			)
+		);
 
 		$sumOfRoles = 0;
 		$acceptedRoles = array(

@@ -7,12 +7,16 @@ class Preference extends CI_Model {
      * Get the preferences of the current user.
      * @return array The net ids of the preferred students.
      */
-    public function get()
+    public function get($netid='')
     {
+        if (!$netid)
+        {
+          $netid = $this->user->getNetid();
+        }
         $preferences = $this->db->query('
         SELECT prefers_studentid
         FROM preferences
-        WHERE studentid = ' . $this->db->escape($this->user->getNetid()) . '
+        WHERE studentid = ' . $this->db->escape($netid) . '
         ORDER BY `order`
         ')->result_array();
 
@@ -26,12 +30,16 @@ class Preference extends CI_Model {
      *
      * @return array The roles that this user provided.
      */
-    public function getRoles()
+    public function getRoles($netid='')
     {
+        if (!$netid)
+        {
+          $netid = $this->user->getNetid();
+        }
         $roles = $this->db->query('
         SELECT role, percentage
         FROM team_roles
-        WHERE netid = ' . $this->db->escape($this->user->getNetid()) . '
+        WHERE netid = ' . $this->db->escape($netid) . '
         ')->result_array();
 
         return array_reduce($roles, function($result, $p) {
