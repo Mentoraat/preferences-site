@@ -110,7 +110,7 @@ for i=1:nKids
         tmpkids = xoverKids(i,:);
         tmpkids(tmpkids==0) = [];
         tmp1 = histc(tmpkids,1:nextclust);
-        if ~all(tmp1==12 | tmp1==13), keyboard; end
+        if ~all(tmp1==12 | tmp1==11), keyboard; end
         
         nextclust = nextclust + 1;
         

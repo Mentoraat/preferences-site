@@ -19,7 +19,7 @@ Dpref = Dpref{1};
 
 nStudents = size(Dpref,1);
 % fitnessfcn = @(x,Dpref,Dbelbin)ClustStudFit;
-nClust = 20;
+nClust = floor(nStudents / 11);
 MaxMutation = 4;
 
 %%%%%%%%%%%%%%%%%%
@@ -45,6 +45,15 @@ nvars = nStudents;
 
 [xs,Is] = sort(x);
 
+fid = fopen('output.csv', 'wt');
+csvFun = @(str)sprintf('%s,',str);
+xchar = cellfun(csvFun, studentnames, 'UniformOutput', false);
+xchar = strcat(xchar{:});
+xchar = strcat(xchar(1:end-1),'\n');
+fprintf(fid,xchar);
+fprintf(fid, num2str(x, '%d,'));
+fclose(fid);
+
 snsort = studentnames(Is);
 Dprefsort = Dpref(Is,Is);
 Dbelbinsort = Dbelbin(Is,:);
@@ -55,14 +64,14 @@ imagesc(Dbelbinsort)
 
 figure();
 for i = 1:nClust
-    subplot(4,5,i);
+    subplot(5,5,i);
     imagesc(Dprefsort(xs==i,xs==i));
     set(gca,'xtick',[],'ytick',[]);
 end
 
 figure();
 for i = 1:nClust
-    subplot(5,4,i);
+    subplot(5,5,i);
     bar(sum(Dbelbin(xs==i,:)>0),'horizontal','on');
     set(gca,'yticklabel',colnames);
     set(gca,'fontsize',6)

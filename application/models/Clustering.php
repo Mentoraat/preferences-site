@@ -26,22 +26,10 @@ class Clustering extends CI_Model {
                 AS allstudents
             JOIN students
                 AS otherstudents
-            WHERE NOT allstudents.firstStudy = 'cs'
-                AND NOT otherstudents.firstStudy = 'cs'
+            ORDER BY allstudents.id, otherstudents.id
 	      ";
 
-        if ($dutch)
-        {
-          $query .= ' AND allstudents.english = "no"
-              AND otherstudents.english = "no"';
-        }
-        else
-        {
-          $query .= ' AND NOT allstudents.english = "no"
-              AND NOT otherstudents.english = "no"';
-        }
-
-        $preferences = $this->db->query($query . " ORDER BY allstudents.id, otherstudents.id")->result();
+        $preferences = $this->db->query($query)->result();
 
         return array_reduce($preferences, function(&$result, $prefered) {
             $result[$prefered->netid][$prefered->prefers_studentid] = $prefered->order;
@@ -49,19 +37,19 @@ class Clustering extends CI_Model {
         }, array());
     }
 
-    public function generateRoles()
+    public function generateRoles($dutch)
     {
-        $roles = $this->db->query("
-            SELECT
-		students.id,
-                students.netid,
-                role,
-                percentage
-            FROM students
-            LEFT OUTER JOIN team_roles
-                ON students.netid = team_roles.netid
-	    ORDER BY students.id
-        ")->result();
+      $query = "
+          SELECT
+              students.id,
+              students.netid,
+              role,
+              percentage
+          FROM students
+          LEFT OUTER JOIN team_roles
+              ON students.netid = team_roles.netid
+          ORDER BY students.id";
+      $roles = $this->db->query($query)->result();
 
         return array_reduce($roles, function(&$result, $role) {
             $result[$role->netid][$role->role] = $role->percentage;
