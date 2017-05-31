@@ -255,7 +255,7 @@ class User extends CI_Model {
   					'isYesOrNo',
   					function($english)
   					{
-  						return in_array($english, array('yes', 'no'));
+  						return in_array($english, array('yes', 'no', 'nopref'));
   					}
   				)
   			),
