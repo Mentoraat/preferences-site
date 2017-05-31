@@ -18,7 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 if (ENVIRONMENT === 'development') {
-    $config['base_url'] = 'http://localhost:180';
+    $config['base_url'] = 'http://localhost/mentoraat';
 }
 else {
     $config['base_url'] = 'http://helix.ewi.tudelft.nl/mentoraat';
