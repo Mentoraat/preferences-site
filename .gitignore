@@ -11,3 +11,4 @@ puphpet/files/
 npm-debug.log.*
 node_modules/
 application/config/database.php
+cache.properties
